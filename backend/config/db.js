@@ -7,6 +7,7 @@ const connectionUrl = `mongodb+srv://${username}:${password}@${cluster}.gvryb6a.
 
 const connectDB = async () => {
     try {
+        await mongoose.set("strictQuery", false);
         await mongoose.connect(connectionUrl)
         console.log("Connection to MongoDB database successful")
     } catch (error) {
