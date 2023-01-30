@@ -42,9 +42,10 @@ const signWeb3Transaction = async (res, next, dataToStore) => {
       dataToStore.buyerMetamaskAddress,
       storedDataLink
     );
-    const gas = await tx.estimateGas({ from: ACCOUNT_ADDRESS });
-    const gasPrice = await web3.eth.getGasPrice();
     const data = tx.encodeABI();
+    const gas = await tx.estimateGas({ from: ACCOUNT_ADDRESS, to: CONTRACT_ADDRESS, data:data });
+    // const gasPrice = await web3.eth.getGasPrice();
+    const price = web3.utils.toHex(web3.utils.toWei('1', 'gwei'));
     const nonce = await web3.eth.getTransactionCount(
       ACCOUNT_ADDRESS,
       "pending"
@@ -54,7 +55,7 @@ const signWeb3Transaction = async (res, next, dataToStore) => {
       data,
       // gas: web3.utils.toHex(web3.utils.toWei("30000000", "wei")),
       gas,
-      gasPrice,
+      gasPrice:price,
       nonce,
       chainId: networkId,
       value: 0
