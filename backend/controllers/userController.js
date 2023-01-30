@@ -7,7 +7,7 @@ const User = require("../models/User");
 const loginUser = asyncHandler(async (req, res, next) => {
   // const privateKey = process.env.PRIVATE_KEY
   let user = await User.findOne({ accountAddress: req.body.accountAddress });
-  console.log(user);
+  // console.log(user);
   if (!user) {
     user = await new User(req.body).save();
   }

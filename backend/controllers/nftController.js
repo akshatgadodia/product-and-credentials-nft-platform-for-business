@@ -1,4 +1,3 @@
-// const mongoose = require("mongoose");
 const asyncHandler = require("../middlewares/asyncHandler");
 const ErrorResponse = require("../utils/errorResponse");
 const User = require("../models/User");
@@ -20,13 +19,12 @@ const verifyUser = asyncHandler(async (req, next) => {
   const apiKey = req.query.apikey;
   if (apiKey) {
     const user = await User.findOne({ apiKey: apiKey });
-    // console.log(user)
     if (user.apiHits <= 0) {
       return next(new ErrorResponse("Plan Limit Exceeded", 403));
     }
   } else {
     const user = await User.findOne({
-      accountAddress: req.body.senderMetamaskAddress
+      accountAddress: req.body.accountAddress
     });
     if (user.websiteHits <= 0) {
       return next(new ErrorResponse("Plan Limit Exceeded", 403));
@@ -44,7 +42,7 @@ const signWeb3Transaction = async (res, next, dataToStore) => {
       dataToStore.buyerMetamaskAddress,
       storedDataLink
     );
-    // const gas = await tx.estimateGas({ from: ACCOUNT_ADDRESS });
+    const gas = await tx.estimateGas({ from: ACCOUNT_ADDRESS });
     const gasPrice = await web3.eth.getGasPrice();
     const data = tx.encodeABI();
     const nonce = await web3.eth.getTransactionCount(
@@ -54,7 +52,8 @@ const signWeb3Transaction = async (res, next, dataToStore) => {
     const options = {
       to: contract.options.address,
       data,
-      gas: web3.utils.toHex(web3.utils.toWei("3000000", "wei")),
+      // gas: web3.utils.toHex(web3.utils.toWei("30000000", "wei")),
+      gas,
       gasPrice,
       nonce,
       chainId: networkId,
@@ -81,18 +80,22 @@ const signWeb3Transaction = async (res, next, dataToStore) => {
 
 const sendSignedWeb3Transaction = async (signedTx, dataToStore) => {
   try {
-    // console.log(signedTx);
     const receipt = await web3.eth.sendSignedTransaction(
       signedTx.rawTransaction
     );
-    // console.log(receipt);
+    const transactionReceipt = await web3.eth.getTransactionReceipt(
+      signedTx.transactionHash
+    );
+    const tokenId = web3.utils.hexToNumber(
+      transactionReceipt.logs[0].topics[3]
+    );
     await sendConfirmationMail({
       ...dataToStore,
+      tokenId,
       txid: receipt.transactionHash
     });
-    return "Success";
+    return { result: "Success", tokenId };
   } catch (err) {
-    // console.log(err);
     if (
       err.message ===
       "Transaction was not mined within 750 seconds, please make sure your transaction was properly sent. Be aware that it might still be mined!"
@@ -100,30 +103,28 @@ const sendSignedWeb3Transaction = async (signedTx, dataToStore) => {
       console.log("TRANSACTION PENDING ON BLOCKCHAIN");
       console.log(err);
       await sendPendingMail({ ...dataToStore, txid: signedTx.transactionHash });
-      return "Pending";
+      return { result: "Pending" };
     } else {
       console.log("NFT CREATION FAILED");
       console.log(err);
       await sendErrorMail({ ...dataToStore, txid: signedTx.transactionHash });
-      return "Failed";
+      return { result: "Failed" };
     }
   }
 };
 
 const storeTransactionData = async (req, data) => {
-  console.log(data);
+  // console.log(data);
   try {
     const user = await User.findOne({
-      accountAddress: data.senderMetamaskAddress
+      accountAddress: data.accountAddress
     });
-    // console.log(user)
     user.transactions.push(data);
     const apiKey = req.query.apikey;
     if (data.status !== "Failed")
       apiKey
         ? (user.apiHits = user.apiHits - 1)
         : (user.websiteHits = user.websiteHits - 1);
-    // console.log(user);
     user.save();
   } catch (err) {
     console.log("Transactions Details Pushing Failed");
@@ -144,19 +145,22 @@ const generateNFT = async (req, res, next) => {
       brandName: req.body.brandName,
       productName: req.body.productName,
       productId: req.body.productId,
-      tokenId: req.body.tokenId,
       warrantyExpireDate: req.body.warrantyExpireDate,
       buyerMetamaskAddress: req.body.buyerMetamaskAddress,
-      senderMetamaskAddress: req.body.senderMetamaskAddress
+      accountAddress: req.body.accountAddress
     };
     //Generating and Signing Web3 Transaction
     const signedTx = await signWeb3Transaction(res, next, dataToStore);
     //Sending Web3 Transaction to Blockchain
-    const result = await sendSignedWeb3Transaction(signedTx, dataToStore);
+    const { result, tokenId } = await sendSignedWeb3Transaction(
+      signedTx,
+      dataToStore
+    );
     //Storing the result  on the database and decreasing the hits value
     await storeTransactionData(req, {
       ...dataToStore,
       txid: signedTx.transactionHash,
+      tokenId,
       status: result
     });
   }
