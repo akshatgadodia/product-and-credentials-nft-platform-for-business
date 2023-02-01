@@ -1,6 +1,7 @@
 const asyncHandler = require("../middlewares/asyncHandler");
 const ErrorResponse = require("../utils/errorResponse");
 const User = require("../models/User");
+const Transaction = require("../models/Transaction");
 
 const { web3 } = require("../config/web3");
 const {
@@ -16,19 +17,15 @@ const {
 } = require("../utils/constants");
 
 const verifyUser = asyncHandler(async (req, next) => {
-  const apiKey = req.query.apikey;
-  if (apiKey) {
-    const user = await User.findOne({ apiKey: apiKey });
-    if (user.apiHits <= 0) {
-      return next(new ErrorResponse("Plan Limit Exceeded", 403));
-    }
+  let user;
+  if (req.roles.includes(1541) || req.roles.includes(7489)) {
+    user = await User.findOne({ _id: req.body.createdBy });
   } else {
-    const user = await User.findOne({
-      accountAddress: req.body.accountAddress
-    });
-    if (user.websiteHits <= 0) {
-      return next(new ErrorResponse("Plan Limit Exceeded", 403));
-    }
+    user = await User.findOne({ _id: req.userId });
+    if (!user) return next(new ErrorResponse("Invalid Access Token", 403));
+  }
+  if (user.walletBalance <= 0) {
+    return next(new ErrorResponse("Plan Limit Exceeded", 403));
   }
   return true;
 });
@@ -38,14 +35,31 @@ const signWeb3Transaction = async (res, next, dataToStore) => {
     const storedDataLink = await saveDataOnIPFS(dataToStore);
     const contract = await new web3.eth.Contract(ABI, CONTRACT_ADDRESS);
     const networkId = await web3.eth.net.getId();
-    const tx = await contract.methods.safeMint(
-      dataToStore.buyerMetamaskAddress,
-      storedDataLink
-    );
+    let tx;
+    if (dataToStore.methodType === 0) {
+      tx = await contract.methods.safeMint(
+        dataToStore.buyerMetamaskAddress,
+        storedDataLink
+      );
+    } else if (dataToStore.methodType === 1) {
+      // tx = await contract.methods.safeMint(
+      //   dataToStore.buyerMetamaskAddress,
+      //   storedDataLink
+      // );
+    } else {
+      // tx = await contract.methods.safeMint(
+      //   dataToStore.buyerMetamaskAddress,
+      //   storedDataLink
+      // );
+    }
     const data = tx.encodeABI();
-    const gas = await tx.estimateGas({ from: ACCOUNT_ADDRESS, to: CONTRACT_ADDRESS, data:data });
-    // const gasPrice = await web3.eth.getGasPrice();
-    const price = web3.utils.toHex(web3.utils.toWei('1', 'gwei'));
+    const gas = await tx.estimateGas({
+      from: ACCOUNT_ADDRESS,
+      to: CONTRACT_ADDRESS,
+      data: data
+    });
+    const gasPrice = await web3.eth.getGasPrice();
+    // const price = web3.utils.toHex(web3.utils.toWei('1', 'gwei'));
     const nonce = await web3.eth.getTransactionCount(
       ACCOUNT_ADDRESS,
       "pending"
@@ -55,7 +69,8 @@ const signWeb3Transaction = async (res, next, dataToStore) => {
       data,
       // gas: web3.utils.toHex(web3.utils.toWei("30000000", "wei")),
       gas,
-      gasPrice:price,
+      // gasPrice:price,
+      gasPrice,
       nonce,
       chainId: networkId,
       value: 0
@@ -68,7 +83,7 @@ const signWeb3Transaction = async (res, next, dataToStore) => {
       success: true,
       data: {
         message: "Request Accepted",
-        txid: signedTx.transactionHash
+        txId: signedTx.transactionHash
       }
     });
     return signedTx;
@@ -87,15 +102,19 @@ const sendSignedWeb3Transaction = async (signedTx, dataToStore) => {
     const transactionReceipt = await web3.eth.getTransactionReceipt(
       signedTx.transactionHash
     );
+    // console.log(transactionReceipt);
     const tokenId = web3.utils.hexToNumber(
       transactionReceipt.logs[0].topics[3]
     );
     await sendConfirmationMail({
       ...dataToStore,
       tokenId,
-      txid: receipt.transactionHash
+      txId: receipt.transactionHash
     });
-    return { result: "Success", tokenId };
+    const value =
+      transactionReceipt.effectiveGasPrice * transactionReceipt.gasUsed;
+    const transactionCost = await web3.utils.fromWei(value.toString(), "ether");
+    return { result: "Success", tokenId, value: transactionCost };
   } catch (err) {
     if (
       err.message ===
@@ -103,37 +122,49 @@ const sendSignedWeb3Transaction = async (signedTx, dataToStore) => {
     ) {
       console.log("TRANSACTION PENDING ON BLOCKCHAIN");
       console.log(err);
-      await sendPendingMail({ ...dataToStore, txid: signedTx.transactionHash });
-      return { result: "Pending" };
+      await sendPendingMail({ ...dataToStore, txId: signedTx.transactionHash });
+      return { result: "Pending", value: NaN };
     } else {
       console.log("NFT CREATION FAILED");
       console.log(err);
-      await sendErrorMail({ ...dataToStore, txid: signedTx.transactionHash });
-      return { result: "Failed" };
+      await sendErrorMail({ ...dataToStore, txId: signedTx.transactionHash });
+      return { result: "Failed", value: 0 };
     }
   }
 };
 
-const storeTransactionData = async (req, data) => {
-  // console.log(data);
+const storeTransactionDataAndDecreaseUserBalance = async (req, data) => {
   try {
-    const user = await User.findOne({
-      accountAddress: data.accountAddress
-    });
-    user.transactions.push(data);
-    const apiKey = req.query.apikey;
-    if (data.status !== "Failed")
-      apiKey
-        ? (user.apiHits = user.apiHits - 1)
-        : (user.websiteHits = user.websiteHits - 1);
-    user.save();
+    const transactionData = {
+      txId: data.txId,
+      createdBy: data.createdBy,
+      buyerName: data.buyerName,
+      buyerEmail: data.buyerEmail,
+      brandName: data.brandName,
+      productName: data.productName,
+      productId: data.productId,
+      tokenId: data.tokenId,
+      warrantyExpireDate: data.warrantyExpireDate,
+      status: data.status,
+      buyerMetamaskAddress: data.buyerMetamaskAddress,
+      dateCreated: data.dateCreated,
+      value: data.value,
+      methodType: data.methodType
+    };
+    await new Transaction(transactionData).save();
+    if (data.status !== "Failed") {
+      await User.findOneAndUpdate(
+        { _id: (req.roles.includes(1541) || req.roles.includes(7489)) ? req.body.createdBy : req.userId },
+        { $inc: { walletBalance: -data.value } }
+      );
+    }
   } catch (err) {
     console.log("Transactions Details Pushing Failed");
     console.log(err);
   }
 };
 
-const generateNFT = async (req, res, next) => {
+const processNFT = async (req, res, next) => {
   //Verifying the limit or authenticity
   const verifyResult = await verifyUser(req, next);
   if (verifyResult) {
@@ -148,23 +179,27 @@ const generateNFT = async (req, res, next) => {
       productId: req.body.productId,
       warrantyExpireDate: req.body.warrantyExpireDate,
       buyerMetamaskAddress: req.body.buyerMetamaskAddress,
-      accountAddress: req.body.accountAddress
+      accountAddress: req.userMetamask,
+      methodType: 0
     };
     //Generating and Signing Web3 Transaction
     const signedTx = await signWeb3Transaction(res, next, dataToStore);
     //Sending Web3 Transaction to Blockchain
-    const { result, tokenId } = await sendSignedWeb3Transaction(
+    const { result, tokenId, value } = await sendSignedWeb3Transaction(
       signedTx,
       dataToStore
     );
     //Storing the result  on the database and decreasing the hits value
-    await storeTransactionData(req, {
+    await storeTransactionDataAndDecreaseUserBalance(req, {
       ...dataToStore,
-      txid: signedTx.transactionHash,
+      txId: signedTx.transactionHash,
       tokenId,
-      status: result
+      status: result,
+      createdBy:  (req.roles.includes(1541) || req.roles.includes(7489)) ? req.body.createdBy :req.userId,
+      dateCreated: new Date(),
+      value
     });
   }
 };
 
-module.exports = { generateNFT };
+module.exports = { processNFT };

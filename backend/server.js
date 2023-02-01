@@ -28,9 +28,18 @@ app.use((req, res, next) => {
 //User Route
 const userRoutes = require("./routes/userRoute");
 app.use("/api/user", userRoutes);
+//Support User Route
+const supportUserRoutes = require("./routes/supportUserRoute");
+app.use("/api/support-user", supportUserRoutes);
 //NFT Route
 const nftRoutes = require("./routes/nftRoute");
 app.use("/api/nft", nftRoutes)
+//Transaction Routes
+const transactionRoutes = require("./routes/transactionRoute");
+app.use("/api/transaction", transactionRoutes)
+//Api Key Routes
+const apiKeyRoutes = require("./routes/apiKeyRoute");
+app.use("/api/api-key", apiKeyRoutes)
 
 app.get("/", async (req, res) => {
   res.send(`
@@ -39,7 +48,6 @@ app.get("/", async (req, res) => {
     </div>
     `);
 });
-
 
 // Error Handler
 const errorHandler = require("./middlewares/errorHandler");
