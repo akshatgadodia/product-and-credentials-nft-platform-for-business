@@ -1,0 +1,20 @@
+:root {
+  --purple: #7567ce;
+  --lightPurple: #b2a4ff;
+  --darkPurple: #181925;
+  --white: #fefefe;
+  --black: #0c0c0d;
+  --greyishWhite: #f4f4f4;
+      /* color:#636676;
+    color: #9291a5; */
+  --footerText: #9596af;
+  --twelve: 12px;
+  --sixteen: 16px;
+}
+
+body {
+  background-color: var(--white);
+}
+a{
+  text-decoration: none !important;
+}

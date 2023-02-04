@@ -4,11 +4,17 @@ import EDITOR_JS_TOOLS from "@/app/config/editor";
 import Undo from "editorjs-undo";
 import DragDrop from "editorjs-drag-drop";
 import { createReactEditorJS } from "react-editor-js";
-import EditorParser from "../elements/EditorParser";
 
-const Editor = props => {
-  console.log(EDITOR_JS_TOOLS);
-  const [data, setData] = useState(props.data);
+
+// import dynamic from "next/dynamic";
+
+// let Editor = dynamic(() => import("../../modules/Editor"), {
+//     ssr: false
+//   });
+
+
+
+const Editor = ({data,setData}) => {
   const ReactEditorJS = createReactEditorJS();
   const editorCore = React.useRef(null);
   const handleInitialize = instance => {
@@ -33,11 +39,6 @@ const Editor = props => {
         tools={EDITOR_JS_TOOLS}
         placeholder="Let`s write an awesome story!"
       />
-      <button onClick={handleSave}>Save</button>
-      <div className="output">
-      <h1>OUTPUT</h1>
-        {data && <EditorParser data={data}/>}
-      </div>
     </>
   );
 };

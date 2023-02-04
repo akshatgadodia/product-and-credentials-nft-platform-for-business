@@ -1,0 +1,50 @@
+{
+  "adminData": [
+    {
+      "key": "1",
+      "title": "NFT",
+      "data": [
+        {
+          "key": "1-A",
+          "title": "Create NFT",
+          "link": "/create-nft"
+        }
+      ]
+    },
+    {
+      "key": "2",
+      "title": "NFT",
+      "data": [
+        {
+          "key": "2-A",
+          "title": "Create NFT",
+          "link": "/create-nft"
+        }
+      ]
+    }
+  ],
+  "supportData": [
+    {
+      "key": "1",
+      "title": "TRANSACTION",
+      "data": [
+        {
+          "title": "Create TRANSACTION",
+          "link": "/create-nft"
+        }
+      ]
+    }
+  ],
+  "editorData": [
+    {
+      "key": "1",
+      "title": "ARTICLE",
+      "data": [
+        {
+          "title": "Create ARTICLE",
+          "link": "/create-nft"
+        }
+      ]
+    }
+  ]
+}
