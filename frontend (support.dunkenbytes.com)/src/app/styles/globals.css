@@ -1,11 +1,14 @@
 :root {
-  --purple: #7567ce;
+  /* --purple: #7567ce; */
+  --purple: #7866d5;
   --lightPurple: #b2a4ff;
   --darkPurple: #181925;
   --white: #fefefe;
   --black: #0c0c0d;
+  --darkWhite: #e9ebef;
   --greyishWhite: #f4f4f4;
-      /* color:#636676;
+  --green: #4caf50;
+  /* color:#636676;
     color: #9291a5; */
   --footerText: #9596af;
   --twelve: 12px;
@@ -15,6 +18,6 @@
 body {
   background-color: var(--white);
 }
-a{
+a {
   text-decoration: none !important;
 }
