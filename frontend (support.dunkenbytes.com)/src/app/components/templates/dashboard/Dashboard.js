@@ -1,12 +1,28 @@
 import React from "react";
 import styles from "./dashboard.module.css";
 import PerformanceDisplay from "./components/PerformanceDisplay";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Chart from "react-google-charts";
 import AppContext from "@/app/context/AppContext";
-
+import MessageDisplay from "./components/MessageDisplay";
+import NewsDisplay from "./components/NewsDisplay";
+import { ReloadOutlined } from "@ant-design/icons";
 const Dashboard = props => {
   const { loggedInDetails } = useContext(AppContext);
+  const [messagesData, setMessagesData] = useState(props.props.messagesData);
+  const [messagesPage, setMessagesPage] = useState(0);
+  const [newsData, setNewsData] = useState(props.props.newsData);
+  const [nextNewsPage, setNextNewsPage] = useState(props.props.nextNewsPage);
+
+  const loadMoreMessagesHandler = async () => {
+    console.log("MORE MESSAGES LOADED");
+  };
+  const refreshMessagesHandler = async () => {
+    console.log("MESSAGES REFRESHED");
+  };
+  const loadMoreNewsHandler = async () => {
+    console.log("MORE NEWS LOADED");
+  };
   return (
     <div className={styles.dashboard}>
       <div className={styles.performanceDiv}>
@@ -32,18 +48,17 @@ const Dashboard = props => {
               value: `${props.props.netTransactionValue} ETH`,
               backgroundColor: "#55ce8e"
             }
-          ].map((data,idx) => {
-                return (
-                  <PerformanceDisplay
-                    key={idx}
-                    src={data.src}
-                    heading={data.heading}
-                    value={data.value}
-                    backgroundColor={data.backgroundColor}
-                  />
-                );
-              }
-          )}
+          ].map((data, idx) => {
+            return (
+              <PerformanceDisplay
+                key={idx}
+                src={data.src}
+                heading={data.heading}
+                value={data.value}
+                backgroundColor={data.backgroundColor}
+              />
+            );
+          })}
         </div>
       </div>
       <div className={styles.middleContainer}>
@@ -51,8 +66,24 @@ const Dashboard = props => {
           ? <div className={styles.middleDiv}>
               <span>Latest News</span>
               <hr />
-              <div className={styles.middleDivContainer}> 
-
+              <div
+                className={`${styles.middleDivContainer} ${styles.newsContainer}`}
+              >
+                {newsData.map((data, idx) => {
+                  return (
+                    <NewsDisplay
+                      key={idx}
+                      title={data.title}
+                      link={data.link}
+                    />
+                  );
+                })}
+                <button
+                  onClick={loadMoreMessagesHandler}
+                  className={styles.loadMoreButton}
+                >
+                  Load More...
+                </button>
               </div>
             </div>
           : <div className={styles.middleDiv}>
@@ -63,18 +94,22 @@ const Dashboard = props => {
                   {[
                     {
                       name: "Gas Price",
-                      value: Number(props.props.gasPrice).toFixed(2)
+                      value: props.props.gasPrice
                     },
                     {
                       name: "Avg Block Time",
-                      value: Number(props.props.avgBlockTime).toFixed(2)
+                      value: props.props.avgBlockTime
                     },
                     { name: "Gas Limit", value: `${props.props.gasLimit}` }
                   ].map((data, idx) => {
                     return (
                       <div className={styles.statsDiv} key={idx}>
-                        <p>{data.name}</p>
-                        <span>{data.value}</span>
+                        <p>
+                          {data.name}
+                        </p>
+                        <span>
+                          {data.value}
+                        </span>
                       </div>
                     );
                   })}
@@ -93,10 +128,34 @@ const Dashboard = props => {
               </div>
             </div>}
         <div className={styles.middleDiv}>
-          <span>Messages</span>
+          <span>
+            Messages
+            <ReloadOutlined
+              className={styles.reloadIcon}
+              onClick={refreshMessagesHandler}
+            />
+          </span>
           <hr />
-          <div className={styles.middleDivContainer} >
-
+          <div
+            className={`${styles.middleDivContainer} ${styles.messagesContainer}`}
+          >
+            {messagesData.map((data, idx) => {
+              return (
+                <MessageDisplay
+                  key={idx}
+                  date={data.date}
+                  messageBy={data.messageBy.name}
+                  subject={data.subject}
+                  isRead={data.isRead}
+                />
+              );
+            })}
+            <button
+              onClick={loadMoreMessagesHandler}
+              className={styles.loadMoreButton}
+            >
+              Load More...
+            </button>
           </div>
         </div>
       </div>

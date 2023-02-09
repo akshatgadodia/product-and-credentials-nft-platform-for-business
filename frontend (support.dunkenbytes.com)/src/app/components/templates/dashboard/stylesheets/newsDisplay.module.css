@@ -1,0 +1,34 @@
+.mainDiv{
+    width: 100%;
+    margin: 0 !important;
+    padding: 10px 20px;
+    /* background-color: var(--darkWhite); */
+    border-bottom: 0.5px solid var(--black);
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    min-height: 50px;
+}
+.mainDiv:hover{
+    background-color: var(--darkWhite);
+}
+.textDiv{
+    display: flex;
+    flex-direction: column;
+    height: 100% !important;
+    justify-content: space-between;
+    padding: 0 !important;
+    gap: 5px;
+}
+.textDiv p{
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 14px;
+    font-weight: 600;
+}
+.textDiv span{
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 12px;
+}

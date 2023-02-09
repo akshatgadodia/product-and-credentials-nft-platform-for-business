@@ -41,14 +41,16 @@
   width: 100%;
 }
 .middleDiv {
-  width: 50%;
+  width: 50% !important;
   background-color: var(--white);
   border-radius: 4px;
   width: 100%;
   height: 100%;
+  border: 1px solid var(--black);
 }
 .middleDiv span {
-  display: block;
+  display: flex;
+  justify-content: space-between;
   padding: 10px 15px;
 }
 .middleDiv hr {
@@ -91,7 +93,47 @@
 .chart {
   /* transform: translateY(-10px) !important; */
 }
-
+.messagesContainer {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  max-height: 483px !important;
+  color: var(--black) !important;
+}
+.newsContainer {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  max-height: 483px !important;
+  /* color: var(--black) !important; */
+}
+.loadMoreButton {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--purple);
+  border: none;
+  color: var(--white);
+}
+.loadMoreButton:hover {
+  opacity: 0.9;
+}
+.reloadIcon {
+  outline: none;
+  background: transparent;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--darkPurple);
+}
 @media only screen and (max-width: 768px) {
   .dashboard {
     width: 100%;
@@ -100,6 +142,9 @@
   .performanceContainer {
     flex-direction: column;
     gap: 20px;
+  }
+  .middleDiv {
+    width: 100% !important;
   }
   .middleContainer {
     flex-direction: column;

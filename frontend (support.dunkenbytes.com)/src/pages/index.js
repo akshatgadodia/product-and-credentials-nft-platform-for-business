@@ -16,27 +16,36 @@ const HomePage = props => {
 
 export default HomePage;
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
+  const config = {
+    method: "GET",
+    body: null,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    credentials: "include"
+  };
   try {
-    const performanceDataResponse = await fetch(
+    const performance = await fetch(
       `${baseURL}/admin-dashboard/get-performance-data`,
-      {
-        method: "GET",
-        body: null,
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-        credentials: "include"
-      }
+      config
     );
-    const performanceData = await performanceDataResponse.json();
+    const messages = await await fetch(`${baseURL}/message/get-messages`);
+    const messagesData = await messages.json();
+    const performanceData = await performance.json();
     const gas = await fetch(
-      `https://api.owlracle.info/v3/goerli/gas?apikey=bf6e75b6686345f982f91bfedf1eb244&feeinusd=false&eip1559=false`
+      `https://api.owlracle.info/v3/goerli/gas?apikey=bf6e75b6686345f982f91bfedf1eb244&feeinusd=false&eip1559=false`,
+      config
     );
     const gasData = await gas.json();
+    const news = await fetch(
+      "https://newsdata.io/api/1/news?apikey=pub_1687132c8ca395f4ec465de59f74769d975ae&q=technology%20blockchain%20AND%20nft&language=en"
+    );
+    const newsData = await news.json();
     const gasHistory = await fetch(
-      "https://api.owlracle.info/v3/goerli/history?apikey=bf6e75b6686345f982f91bfedf1eb244&candles=10"
+      "https://api.owlracle.info/v3/goerli/history?apikey=bf6e75b6686345f982f91bfedf1eb244&candles=10",
+      config
     );
     const gasHistoryData = await gasHistory.json();
     const chartData = [["time", "gas price", "open", "close", "high"]];
@@ -57,10 +66,14 @@ export async function getServerSideProps(context) {
         nftsCreated: performanceData.data.nftsCreated,
         netTransactionValue: `${performanceData.data.netTransactionValue}`,
         chartData: chartData,
-        gasPrice: `${gasData.speeds[3].gasPrice} gwei`,
-        avgBlockTime: `${gasData.avgTime} min`,
-        gasLimit: 30000000, 
-      }
+        gasPrice: `${Number(gasData.speeds[3].gasPrice).toFixed(2)} gwei`,
+        avgBlockTime: `${Number(gasData.avgTime).toFixed(2)} min`,
+        gasLimit: 30000000,
+        messagesData: messagesData.data.messages,
+        newsData: newsData.results,
+        nextNewsPage: newsData.nextPage
+      },
+      revalidate: 60
     };
   } catch (err) {
     console.log(err);
@@ -69,10 +82,11 @@ export async function getServerSideProps(context) {
         businessServed: "N/A",
         nftsCreated: "N/A",
         netTransactionValue: "N/A",
-        chartData:"N/A",
+        chartData: [],
         gasPrice: "N/A",
         avgBlockTime: "N/A",
-        gasLimit: "N/A"
+        gasLimit: "N/A",
+        messagesData: []
       }
     };
   }
