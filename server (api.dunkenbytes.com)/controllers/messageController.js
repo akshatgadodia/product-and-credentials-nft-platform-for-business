@@ -23,10 +23,10 @@ const getMessages = asyncHandler(async (req, res, next) => {
   let searchParameter = {};
   // if (req.roles.includes(3894)) searchParameter = {type: "Editor"};
   // else if (req.roles.includes(7489)) searchParameter = { type: "Support" };
-  const messages = await Message.find(searchParameter)
-    .sort({ date: -1 })
-    .populate({ path: "messageBy", select: ["name"] })
-    .select({message:0, type:0});
+  const messages = await Message.find(searchParameter).limit(10).skip((req.query.currentPage-1)*10)
+  .sort({ date: -1 })
+  .populate({ path: "messageBy", select: ["name"] })
+  .select({message:0, type:0});
   res.status(201).json({
     success: true,
     data: {

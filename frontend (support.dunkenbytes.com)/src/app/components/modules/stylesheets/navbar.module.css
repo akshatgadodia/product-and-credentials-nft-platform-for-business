@@ -1,74 +1,88 @@
 .navbar {
   position: sticky;
   top: 0;
-  /* left: 0;
-  right: 0;
-  bottom: auto; */
   z-index: 990;
   display: flex;
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  background-color: hsla(0, 0%, 100%, 0);
+  background-color: var(--white);
   height: 80px;
   padding: 15px 10vw;
 }
-.fixedNavbar{
-  background-color: var(--white);
+.fixedNavbar {
   box-shadow: 0 1px 25px 0 rgb(0 0 0 / 5%);
 }
-.logo{
+.logo {
   height: 50px;
   width: auto;
 }
-/* .sideDrawerButton {
-  border-radius: 100% !important;
-  height: 36px !important;
-  width: 36px !important;
-  background-size: contain !important;
-  background-position: center !important;
-} */
-.buttonsContainer{
+.buttonsContainer {
   display: flex;
   justify-content: space-between;
   gap: 20px;
   align-items: center;
 }
-.dropdownButton{
+.dropdownButton {
   background-color: transparent;
   height: fit-content;
   width: fit-content;
-  border:none;
-  outline:none;
+  border: none;
+  outline: none;
 }
-.avatar{
+.avatar {
   background-color: var(--purple) !important;
   color: var(--white) !important;
   cursor: pointer;
 }
-.avatar:hover{
+.avatar:hover {
   opacity: 0.85;
-  transition: opacity .2s;
+  transition: opacity 0.2s;
 }
-
-
-@media only screen and (max-width:768px){
+.avatarItem {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  height: 40px;
+  -webkit-box-pack: justify;
+  justify-content: flex-start;
+  align-items: center !important;
+  gap: 20px;
+  font-weight: 600;
+  font-size: 16px;
+  width: 200px !important;
+}
+.avatarItemIcon {
+  font-size: 18px;
+}
+.avatarItemButton {
+  background-color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+@media only screen and (max-width: 768px) {
   .navbar {
     height: 80px;
     padding: 15px 5vw;
-  }
-  .fixedNavbar{
     background-color: var(--white);
+  }
+  .fixedNavbar {
     box-shadow: 0 0 5px var(--black);
   }
-  .logo{
+  .logo {
     height: 40px;
     width: auto;
   }
-  .buttonsContainer{
+  .buttonsContainer {
     display: flex;
     justify-content: space-between;
     gap: 20px;
     align-items: center;
+  }
+  .avatarItem {
+    gap: 10px;
+    width: 156px !important;
   }
 }

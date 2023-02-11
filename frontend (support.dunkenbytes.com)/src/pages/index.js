@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import DefaultLayout from "@/app/components/layouts/DefaultLayout";
-import Dashboard from "@/app/components/templates/dashboard/Dashboard";
-import Login from "@/app/components/templates/login/Login";
+import Dashboard from "@/app/components/templates/dashboardPage/DashboardPage";
+import Login from "@/app/components/templates/loginPage/LoginPage";
 import AppContext from "@/app/context/AppContext";
 import baseURL from "@/app/constants/baseURL";
 
-const HomePage = props => {
+const Home = props => {
   const { loggedInDetails } = useContext(AppContext);
   return !loggedInDetails.isLoggedIn
     ? <Login />
@@ -14,8 +14,7 @@ const HomePage = props => {
       </DefaultLayout>;
 };
 
-export default HomePage;
-
+export default Home;
 export async function getStaticProps(context) {
   const config = {
     method: "GET",
@@ -31,7 +30,7 @@ export async function getStaticProps(context) {
       `${baseURL}/admin-dashboard/get-performance-data`,
       config
     );
-    const messages = await await fetch(`${baseURL}/message/get-messages`);
+    const messages = await fetch(`${baseURL}/message/get-messages?currentPage=1`);
     const messagesData = await messages.json();
     const performanceData = await performance.json();
     const gas = await fetch(
@@ -87,7 +86,8 @@ export async function getStaticProps(context) {
         avgBlockTime: "N/A",
         gasLimit: "N/A",
         messagesData: []
-      }
+      },
+      revalidate: 60
     };
   }
 }

@@ -1,0 +1,33 @@
+.ant-click-animating-node {
+  display: none !important;
+}
+[ant-click-animating-without-extra-node="true"]::after {
+  display: none !important;
+}
+.ant-btn::after {
+  all: unset !important;
+}
+
+.error-notification{
+  border-radius: 4px !important;
+}
+
+/* @/app/components/templates/login/components/CookieBar.js*/
+.cookieBarModal {
+  width: 600px !important;
+  max-width: 90vw !important;
+  border-radius: 4px !important;
+}
+.cookieBarModal .ant-modal-title {
+  font-size: 1.5rem !important;
+  font-weight: 400;
+  letter-spacing: normal !important;
+  line-height: 2rem;
+  padding-left: 18px !important;
+}
+.cookieBarModal .ant-modal-body {
+  padding: 30px 20px 40px 20px;
+}
+.cookieBarModal .ant-switch-checked{
+  background: var(--green) !important;
+}

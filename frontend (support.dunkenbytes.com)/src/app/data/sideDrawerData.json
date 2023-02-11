@@ -13,12 +13,61 @@
     },
     {
       "key": "2",
-      "title": "NFT",
+      "title": "Transactions",
       "data": [
         {
           "key": "2-A",
-          "title": "Create NFT",
-          "link": "/create-nft"
+          "title": "View All NFT Transactions",
+          "link": "/transactions/nft"
+        },
+        {
+          "key": "2-B",
+          "title": "View All Wallet Recharge Transactions",
+          "link": "/transactions/wallet-recharge"
+        }
+      ]
+    },
+    {
+      "key": "3",
+      "title": "Users",
+      "data": [
+        {
+          "key": "3-A",
+          "title": "View All Users",
+          "link": "/users"
+        }
+      ]
+    },
+    {
+      "key": "4",
+      "title": "Articles",
+      "data": [
+        {
+          "key": "4-A",
+          "title": "View All Articles",
+          "link": "/articles"
+        }
+      ]
+    },
+    {
+      "key": "5",
+      "title": "Blogs",
+      "data": [
+        {
+          "key": "5-A",
+          "title": "View All Blogs",
+          "link": "/blogs"
+        }
+      ]
+    },
+    {
+      "key": "6",
+      "title": "FAQ",
+      "data": [
+        {
+          "key": "6-A",
+          "title": "View All FAQ's",
+          "link": "/faq"
         }
       ]
     }
@@ -26,11 +75,28 @@
   "supportData": [
     {
       "key": "1",
-      "title": "TRANSACTION",
+      "title": "Transactions",
       "data": [
         {
-          "title": "Create TRANSACTION",
-          "link": "/create-nft"
+          "key": "1-A",
+          "title": "View All NFT Transactions",
+          "link": "/transactions/nft"
+        },
+        {
+          "key": "1-B",
+          "title": "View All Wallet Recharge Transactions",
+          "link": "/transactions/wallet-recharge"
+        }
+      ]
+    },
+    {
+      "key": "2",
+      "title": "Users",
+      "data": [
+        {
+          "key": "2-A",
+          "title": "Users",
+          "link": "/users"
         }
       ]
     }
@@ -38,11 +104,34 @@
   "editorData": [
     {
       "key": "1",
-      "title": "ARTICLE",
+      "title": "Articles",
       "data": [
         {
-          "title": "Create ARTICLE",
-          "link": "/create-nft"
+          "key": "1-A",
+          "title": "View All Articles",
+          "link": "/articles"
+        }
+      ]
+    },
+    {
+      "key": "2",
+      "title": "Blogs",
+      "data": [
+        {
+          "key": "2-A",
+          "title": "View All Blogs",
+          "link": "/blogs"
+        }
+      ]
+    },
+    {
+      "key": "3",
+      "title": "FAQ",
+      "data": [
+        {
+          "key": "3-A",
+          "title": "View All FAQ's",
+          "link": "/faq"
         }
       ]
     }

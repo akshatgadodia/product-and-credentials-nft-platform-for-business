@@ -1,0 +1,23 @@
+.transactionDiv {
+  width: 100%;
+  padding: 50px 10vw;
+  min-height: 100vh;
+  text-align: center;
+}
+.transactionDiv h1 {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.transactionDiv p{
+  color: var(--footerText);
+  margin-top: 5px;
+  margin-bottom: 50px;
+}
+@media only screen and (max-width: 768px) {
+  .transaction {
+    padding: 20px 5vw;
+  }
+  .transactionDiv p {
+    margin-bottom: 30px;
+  }
+}
