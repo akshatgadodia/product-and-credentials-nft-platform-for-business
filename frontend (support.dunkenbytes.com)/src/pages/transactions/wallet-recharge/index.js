@@ -24,7 +24,7 @@ export async function getStaticProps(context) {
     credentials: "include"
   };
   try {
-    const transactions = await fetch(`${baseURL}/nft-transaction/get-all-transactions`,config);
+    const transactions = await fetch(`${baseURL}/wallet-transaction/get-all-transactions?q={}&page=1&size=10`,config);
     const transactionsData = await transactions.json();
     return {
       props: {

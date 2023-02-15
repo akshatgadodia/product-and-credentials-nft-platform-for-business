@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styles from "./walletRechargeTransactionSinglePage.module.css";
 import Head from "next/head";
-import { useHttpClient } from "@/app/hooks/useHttpClient";
 import Link from "next/link";
-import { Tag } from "antd";
+import { Button, Tag } from "antd";
 
-const NftTransactionsSinglePage = props => {
+const WalletRechargeTransactionSinglePage = props => {
   const transactionData = props.transactionData;
-  // let date = transactionData.dateCreated;
   return (
     <div className={`${styles.transactionSingleDiv}`}>
       <Head>
@@ -15,15 +13,24 @@ const NftTransactionsSinglePage = props => {
           {`${transactionData.txId.slice(0, 2)}...${transactionData.txId.slice(
             -3
           )}`}{" "}
-          NFT Transaction | Support Drunken Bytes
+          Wallet Recharge Transaction | Support Drunken Bytes
         </title>
       </Head>
-      <h1>NFT Transaction Details</h1>
+      <h1>Wallet Recharge Transaction Details</h1>
       <p className={styles.p}>
-        Details of NFT Transaction hashed {transactionData.txId}.
+        Details of Wallet Recharge Transaction hashed {transactionData.txId}.
       </p>
       <div className={styles.buttonDiv}>
-          <Button className={styles.button} onClick={()=>window.open(`https://goerli.etherscan.io/tx/${transactionData.txId}`, '_blank')} >View transaction on Etherscan</Button>
+        <Button
+          className={styles.button}
+          onClick={() =>
+            window.open(
+              `https://goerli.etherscan.io/tx/${transactionData.txId}`,
+              "_blank"
+            )}
+        >
+          View transaction on Etherscan
+        </Button>
       </div>
       <div className={styles.detailsDiv}>
         <div className={styles.detail}>
@@ -41,23 +48,25 @@ const NftTransactionsSinglePage = props => {
           </p>
         </div>
         <div className={styles.detail}>
-          <p className={styles.title}>Token ID: </p>
+          <p className={styles.title}>Date Crated: </p>
           <p className={styles.value}>
-            {transactionData.tokenId}
+            {new Date(transactionData.dateCreated).getDate() +
+              "/" +
+              (new Date(transactionData.dateCreated).getMonth() + 1) +
+              "/" +
+              new Date(transactionData.dateCreated).getFullYear() +
+              " " +
+              new Date(transactionData.dateCreated).getHours() +
+              ":" +
+              new Date(transactionData.dateCreated).getMinutes() +
+              ":" +
+              new Date(transactionData.dateCreated).getSeconds()}
           </p>
         </div>
         <div className={styles.detail}>
           <p className={styles.title}>Value: </p>
           <p className={styles.value}>
             {`${(Number(transactionData.value) * 1000000000).toFixed(2)} gwei`}
-          </p>
-        </div>
-        <div className={styles.detail}>
-          <p className={styles.title}>Method: </p>
-          <p className={styles.value}>
-            {transactionData.methodType === 0
-              ? "Safe Mint"
-              : methodType === 1 ? "Transfer" : "Burn"}
           </p>
         </div>
         <div className={styles.detail}>
@@ -78,51 +87,9 @@ const NftTransactionsSinglePage = props => {
             }
           </p>
         </div>
-        <div className={styles.detail}>
-          <p className={styles.title}>Buyer Name: </p>
-          <p className={styles.value}>
-            {transactionData.buyerName}
-          </p>
-        </div>
-        <div className={styles.detail}>
-          <p className={styles.title}>Buyer Email: </p>
-          <p className={styles.value}>
-            {transactionData.buyerEmail}
-          </p>
-        </div>
-        <div className={styles.detail}>
-          <p className={styles.title}>Buyer Metamask Address: </p>
-          <p className={styles.value}>
-            {transactionData.buyerMetamaskAddress}
-          </p>
-        </div>
-        <div className={styles.detail}>
-          <p className={styles.title}>Brand Name: </p>
-          <p className={styles.value}>
-            {transactionData.brandName}
-          </p>
-        </div>
-        <div className={styles.detail}>
-          <p className={styles.title}>Product Name: </p>
-          <p className={styles.value}>
-            {transactionData.productName}
-          </p>
-        </div>
-        <div className={styles.detail}>
-          <p className={styles.title}>Product Id: </p>
-          <p className={styles.value}>
-            {transactionData.productId}
-          </p>
-        </div>
-        <div className={styles.detail}>
-          <p className={styles.title}>Warranty Expiry Date: </p>
-          <p className={styles.value}>
-            {transactionData.warrantyExpireDate}
-          </p>
-        </div>
       </div>
     </div>
   );
 };
 
-export default NftTransactionsSinglePage;
+export default WalletRechargeTransactionSinglePage;

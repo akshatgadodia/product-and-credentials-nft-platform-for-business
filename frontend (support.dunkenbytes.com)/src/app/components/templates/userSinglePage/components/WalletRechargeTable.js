@@ -1,11 +1,11 @@
 import React from "react";
-import { SearchOutlined, RedoOutlined } from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
 import { Button, Input, Space, Table, Tag  } from "antd";
 import { useRef, useState, useEffect } from "react";
 import { useHttpClient } from "@/app/hooks/useHttpClient";
 import Link from "next/link";
 
-const CustomTable = props => {
+const WalletRechargeTable = props => {
   const { sendRequest, isLoading } = useHttpClient();
   const [tableData, setTableData] = useState(props.data);
   const [totalTransactions, setTotalTransactions] = useState(props.totalTransactions)
@@ -15,9 +15,17 @@ const CustomTable = props => {
   const searchInput = useRef(null);
   
   useEffect(() => {
-    setTableData(props.data);
-    setTotalTransactions(props.totalTransactions);
-  }, [props]);
+    const getData = async() => {
+      let queryParams = []
+      for (const key in filters) {
+        queryParams.push(JSON.stringify({[key]: filters[key]}))
+      }
+      const transactionsData = await sendRequest(`/wallet-transaction/get-user-transactions?q=${queryParams}&createdBy=${props.userId}&page=${currentPage}&size=${pageSize}`);
+      setTableData(transactionsData.transactions)
+      setTotalTransactions(transactionsData.totalTransactions)
+    }
+    getData()
+  }, []);
 
   useEffect(() => {
     const getData = async() => {
@@ -25,7 +33,7 @@ const CustomTable = props => {
       for (const key in filters) {
         queryParams.push(JSON.stringify({[key]: filters[key]}))
       }
-      const transactionsData = await sendRequest(`/nft-transaction/get-all-transactions?q=${queryParams}&page=${currentPage}&size=${pageSize}`);
+      const transactionsData = await sendRequest(`/wallet-transaction/get-user-transactions?q=${queryParams}&createdBy=${props.userId}&page=${currentPage}&size=${pageSize}`);
       setTableData(transactionsData.transactions)
       setTotalTransactions(transactionsData.totalTransactions)
     }
@@ -48,11 +56,6 @@ const CustomTable = props => {
     setCurrentPage(current);
     setPageSize(size)
   }
-  
-  const repeatTransactionHandler = async(txId) => {
-   await sendRequest('/nft-transaction/repeat-transaction',"POST",JSON.stringify({txId}))
-  }
-
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
       <div
@@ -130,36 +133,9 @@ const CustomTable = props => {
       key: "txId",
       ...getColumnSearchProps('txId'),
       render: (_, { txId }) =>
-        <Link href={`/transactions/nft/${txId}`}>
+        <Link href={`/transactions/wallet-recharge/${txId}`}>
           {`${txId.slice(0, 4)}...${txId.slice(-6)}`}
         </Link>
-    },
-    {
-      title: "Created By",
-      dataIndex: "createdBy",
-      key: "createdBy",
-      render: (_, { createdBy }) =>
-        <Link href={`/user/${createdBy._id}`}>
-          {createdBy.name}
-        </Link>
-    },
-    {
-      title: "Buyer Metamask Address",
-      dataIndex: "buyerMetamaskAddress",
-      key: "buyerMetamaskAddress",
-      ...getColumnSearchProps('buyerMetamaskAddress'),
-      render: (_, { buyerMetamaskAddress }) =>
-      <div>
-        {`${buyerMetamaskAddress.slice(0, 5)}...${buyerMetamaskAddress.slice(-8)}`}
-      </div>
-    },
-    {
-      title: "Token ID",
-      dataIndex: "tokenId",
-      key: "tokenId",
-      sorter: (a, b) => a.tokenId > b.tokenId,
-      sortDirections: ["descend", "ascend"],
-      ...getColumnSearchProps('tokenId'),
     },
     {
       title: "Date Created",
@@ -183,28 +159,6 @@ const CustomTable = props => {
         </div>
     },
     {
-      title: "Expiry Date",
-      dataIndex: "warrantyExpireDate",
-      key: "warrantyExpireDate",
-      sorter: (a, b) =>
-        new Date(a.warrantyExpireDate) > new Date(b.warrantyExpireDate),
-      sortDirections: ["descend", "ascend"],
-      render: (_, { warrantyExpireDate }) =>
-        <div>
-          {new Date(warrantyExpireDate).getDate() +
-            "/" +
-            (new Date(warrantyExpireDate).getMonth() + 1) +
-            "/" +
-            new Date(warrantyExpireDate).getFullYear() +
-            " " +
-            new Date(warrantyExpireDate).getHours() +
-            ":" +
-            new Date(warrantyExpireDate).getMinutes() +
-            ":" +
-            new Date(warrantyExpireDate).getSeconds()}
-        </div>
-    },
-    {
       title: "Status",
       dataIndex: "status",
       key: "status",
@@ -222,18 +176,6 @@ const CustomTable = props => {
         </Tag>
     },
     {
-      title: "Method Type",
-      dataIndex: "methodType",
-      key: "methodType",
-      ...getColumnSearchProps('methodType'),
-      render: (_, { methodType }) =>
-        <div>
-          {methodType === 0
-            ? "Safe Mint"
-            : methodType === 1 ? "Transfer" : "Burn"}
-        </div>
-    },
-    {
       title: "Value",
       dataIndex: "value",
       key: "value",
@@ -243,12 +185,6 @@ const CustomTable = props => {
         <div>
           {`${(Number(value) * 1000000000).toFixed(2)} gwei`}
         </div>
-    },
-    {
-      title: "Retry",
-      dataIndex: "retry",
-      key: "retry",
-      render: (_, record) => <Button type="text" onClick={()=>repeatTransactionHandler(record.txId)}><RedoOutlined /></Button>
     }
   ];
 
@@ -265,8 +201,9 @@ const CustomTable = props => {
         x: "max-content"
       }}
       loading={isLoading}
+      rowKey="id"
     />
   );
 };
 
-export default CustomTable;
+export default WalletRechargeTable;

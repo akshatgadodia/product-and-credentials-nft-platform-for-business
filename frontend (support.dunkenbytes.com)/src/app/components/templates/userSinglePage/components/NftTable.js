@@ -5,7 +5,7 @@ import { useRef, useState, useEffect } from "react";
 import { useHttpClient } from "@/app/hooks/useHttpClient";
 import Link from "next/link";
 
-const CustomTable = props => {
+const NftTable = props => {
   const { sendRequest, isLoading } = useHttpClient();
   const [tableData, setTableData] = useState(props.data);
   const [totalTransactions, setTotalTransactions] = useState(props.totalTransactions)
@@ -15,9 +15,17 @@ const CustomTable = props => {
   const searchInput = useRef(null);
   
   useEffect(() => {
-    setTableData(props.data);
-    setTotalTransactions(props.totalTransactions);
-  }, [props]);
+    const getData = async() => {
+      let queryParams = []
+      for (const key in filters) {
+        queryParams.push(JSON.stringify({[key]: filters[key]}))
+      }
+      const transactionsData = await sendRequest(`/nft-transaction/get-user-transactions?q=${queryParams}&createdBy=${props.userId}&page=${currentPage}&size=${pageSize}`);
+      setTableData(transactionsData.transactions)
+      setTotalTransactions(transactionsData.totalTransactions)
+    }
+    getData()
+  }, []);
 
   useEffect(() => {
     const getData = async() => {
@@ -25,7 +33,7 @@ const CustomTable = props => {
       for (const key in filters) {
         queryParams.push(JSON.stringify({[key]: filters[key]}))
       }
-      const transactionsData = await sendRequest(`/nft-transaction/get-all-transactions?q=${queryParams}&page=${currentPage}&size=${pageSize}`);
+      const transactionsData = await sendRequest(`/nft-transaction/get-user-transactions?q=${queryParams}&createdBy=${props.userId}&page=${currentPage}&size=${pageSize}`);
       setTableData(transactionsData.transactions)
       setTotalTransactions(transactionsData.totalTransactions)
     }
@@ -135,15 +143,6 @@ const CustomTable = props => {
         </Link>
     },
     {
-      title: "Created By",
-      dataIndex: "createdBy",
-      key: "createdBy",
-      render: (_, { createdBy }) =>
-        <Link href={`/user/${createdBy._id}`}>
-          {createdBy.name}
-        </Link>
-    },
-    {
       title: "Buyer Metamask Address",
       dataIndex: "buyerMetamaskAddress",
       key: "buyerMetamaskAddress",
@@ -190,19 +189,19 @@ const CustomTable = props => {
         new Date(a.warrantyExpireDate) > new Date(b.warrantyExpireDate),
       sortDirections: ["descend", "ascend"],
       render: (_, { warrantyExpireDate }) =>
-        <div>
-          {new Date(warrantyExpireDate).getDate() +
-            "/" +
-            (new Date(warrantyExpireDate).getMonth() + 1) +
-            "/" +
-            new Date(warrantyExpireDate).getFullYear() +
-            " " +
-            new Date(warrantyExpireDate).getHours() +
-            ":" +
-            new Date(warrantyExpireDate).getMinutes() +
-            ":" +
-            new Date(warrantyExpireDate).getSeconds()}
-        </div>
+      <div>
+        {new Date(warrantyExpireDate).getDate() +
+          "/" +
+          (new Date(warrantyExpireDate).getMonth() + 1) +
+          "/" +
+          new Date(warrantyExpireDate).getFullYear() +
+          " " +
+          new Date(warrantyExpireDate).getHours() +
+          ":" +
+          new Date(warrantyExpireDate).getMinutes() +
+          ":" +
+          new Date(warrantyExpireDate).getSeconds()}
+      </div>
     },
     {
       title: "Status",
@@ -269,4 +268,4 @@ const CustomTable = props => {
   );
 };
 
-export default CustomTable;
+export default NftTable;

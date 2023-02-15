@@ -1,27 +1,24 @@
 import React from "react";
 import DefaultLayout from "@/app/components/layouts/DefaultLayout";
 import baseURL from "@/app/constants/baseURL";
-import WalletRechargeTransactionSinglePage from "../../../../app/components/templates/walletRechargeTransactionSinglePage/WalletRechargeTransactionSinglePage";
+import UserSinglePage from '@/app/components/templates/userSinglePage/UserSinglePage';
 
-const WalletTransaction = props => {
+const UserSingle = (props) => {
   return (
     <DefaultLayout>
-      <WalletRechargeTransactionSinglePage
-        transactionData={props.transaction}
-      />
+      <UserSinglePage userData={props.userData}/>
     </DefaultLayout>
   );
 };
 
-export default WalletTransaction;
+export default UserSingle;
 
 export async function getStaticPaths() {
   return {
     paths: [
       {
         params: {
-          txId:
-            "0xa046091545e6daaa542e80e86fe7798a2e349da98628706e42ccd56259eca762"
+          userId: "63e4da7da3fed4adf7ba15ab"
         }
       }
     ],
@@ -30,7 +27,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const txId = params.txId;
+  const userId = params.userId;
   const config = {
     method: "GET",
     body: null,
@@ -41,14 +38,14 @@ export async function getStaticProps({ params }) {
     credentials: "include"
   };
   try {
-    const transactions = await fetch(
-      `${baseURL}/wallet-transaction/get-transaction?transactionHash=${txId}`,
+    const user = await fetch(
+      `${baseURL}/user/get-user?userId=${userId}`,
       config
     );
-    const transactionsData = await transactions.json();
+    const userData = await user.json();
     return {
       props: {
-        transaction: transactionsData.data.transaction
+        userData: userData.data.user
       },
       revalidate: 60
     }
@@ -56,7 +53,7 @@ export async function getStaticProps({ params }) {
     console.log(err);
     return {
       props: {
-        transaction: null,
+        userData: null,
       },
       revalidate: 60
     };

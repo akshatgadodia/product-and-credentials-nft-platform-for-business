@@ -49,8 +49,21 @@ const repeatTransaction = asyncHandler(async (req, res, next) => {
 });
 
 const getTransactionsByUserID = asyncHandler(async (req, res, next) => {
-  const createdBy = req.body.userId;
-  const transactions = await NftTransaction.find({ createdBy });
+  const createdBy = req.query.createdBy;
+  const { q, page, size } = req.query;
+  let l = [];
+  if (q) {
+    const s = q.split(",");
+    s.forEach(element => {
+      l.push(JSON.parse(element));
+    });
+  }
+  l.push({
+    createdBy: createdBy
+  })
+  const transactions = await NftTransaction.find({ $and: l })
+  .skip((page - 1) * size)
+  .limit(size)
   res.status(200).json({
     success: true,
     data: {

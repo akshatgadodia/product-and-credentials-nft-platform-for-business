@@ -6,7 +6,7 @@ import UserPage from '@/app/components/templates/userPage/UserPage';
 const User = (props) => {
   return (
     <DefaultLayout>
-      <UserPage transactions={props.transactions} totalTransactions={props.totalTransactions}/>
+      <UserPage users={props.users} totalUsers={props.totalUsers}/>
     </DefaultLayout>
   );
 };
@@ -24,12 +24,12 @@ export async function getStaticProps(context) {
     credentials: "include"
   };
   try {
-    const transactions = await fetch(`${baseURL}/nft-transaction/get-all-transactions`,config);
-    const transactionsData = await transactions.json();
+    const users = await fetch(`${baseURL}/user/get-all-users`,config);
+    const usersData = await users.json();
     return {
       props: {
-        transactions:transactionsData.data.transactions,
-        totalTransactions: transactionsData.data.totalTransactions
+        users:usersData.data.users,
+        totalUsers: usersData.data.totalUsers
       },
       revalidate: 60
     };
@@ -37,8 +37,8 @@ export async function getStaticProps(context) {
     console.log(err);
     return {
       props: {
-        transactions:[],
-        totalTransactions: 0
+        users:[],
+        totalUsers: 0
       },
       revalidate: 60
     };

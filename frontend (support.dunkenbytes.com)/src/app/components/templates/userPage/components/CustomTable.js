@@ -1,58 +1,53 @@
 import React from "react";
-import { SearchOutlined, RedoOutlined } from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
 import { Button, Input, Space, Table, Tag  } from "antd";
 import { useRef, useState, useEffect } from "react";
 import { useHttpClient } from "@/app/hooks/useHttpClient";
 import Link from "next/link";
 
 const CustomTable = props => {
-  const { error, sendRequest, isLoading } = useHttpClient();
-  const [tableData, setTableData] = useState(props.data);
-  const [totalTransactions, setTotalTransactions] = useState(props.totalTransactions)
+  const { sendRequest, isLoading } = useHttpClient();
+  const [tableData, setTableData] = useState(props.users);
+  const [totalData, setTotalData] = useState(props.totalUsers)
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
   const [filters, setFilters] = useState({});
   const searchInput = useRef(null);
-
   
   useEffect(() => {
     setTableData(props.data);
-    setTotalTransactions(props.totalTransactions);
+    setTotalData(props.totalData);
   }, [props]);
 
-  const handleSearch = (selectedKeys, confirm, dataIndex) => {
-    /* 
-      Code Here
-    */
-    confirm();
+  useEffect(() => {
+    const getData = async() => {
+      let queryParams = []
+      for (const key in filters) {
+        queryParams.push(JSON.stringify({[key]: filters[key]}))
+      }
+      const transactionsData = await sendRequest(`/wallet-transaction/get-all-transactions?q=${queryParams}&page=${currentPage}&size=${pageSize}`);
+      setTableData(transactionsData.transactions)
+      setTotalData(transactionsData.totalData)
+    }
+    getData()
+  },[currentPage, pageSize, filters])
+
+  const handleSearch = async(selectedKeys, confirm, dataIndex, clearFilters) => {
+    confirm({closeDropdown : true});
     setFilters(prevState => ({
       ...prevState,
       [dataIndex]: selectedKeys[0]
   }));
   };
-
   const handleReset = (clearFilters, selectedKeys, confirm, dataIndex) => {
     clearFilters();
     const { [dataIndex]: tmp, ...rest } = filters;
     setFilters(rest);
   };
   const onPageChangeHandler = async (current, size) => {
-    /*
-      Code Here
-    */
-    console.log(current, size)
     setCurrentPage(current);
     setPageSize(size)
   }
-  
-  const repeatTransactionHandler = async(txId) => {
-    /*
-      Code Here
-    */
-   await sendRequest('/nft-transaction/repeat-transaction',"POST",JSON.stringify({txId}))
-   
-  }
-
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
       <div
@@ -75,7 +70,7 @@ const CustomTable = props => {
         <Space>
           <Button
             type="primary"
-            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            onClick={() => handleSearch(selectedKeys, confirm, dataIndex, clearFilters)}
             icon={<SearchOutlined />}
             size="small"
             style={{
@@ -125,112 +120,37 @@ const CustomTable = props => {
   });
   const columns = [
     {
-      title: "Transaction Hash",
-      dataIndex: "txId",
-      key: "txId",
-      render: (_, { txId }) =>
-        <Link href={`/transactions/nft/${txId}`}>
-          {`${txId.slice(0, 2)}...${txId.slice(-3)}`}
+      title: "User Name",
+      dataIndex: "_id",
+      key: "_id",
+      ...getColumnSearchProps('_id'),
+      render: (_, { _id, name }) =>
+        <Link href={`/users/${_id}`}>
+          {name}
         </Link>
     },
     {
-      title: "Created By",
-      dataIndex: "createdBy",
-      key: "createdBy",
-      ...getColumnSearchProps('createdBy'),
-      render: (_, { createdBy }) =>
-        <Link href={`/user/${createdBy._id}`}>
-          {createdBy.name}
-        </Link>
+      title: "Account Address",
+      dataIndex: "accountAddress",
+      key: "accountAddress",
+      ...getColumnSearchProps('accountAddress'),
     },
     {
-      title: "Buyer Metamask Address",
-      dataIndex: "buyerMetamaskAddress",
-      key: "buyerMetamaskAddress",
-      ...getColumnSearchProps('buyerMetamaskAddress'),
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+      ...getColumnSearchProps('email'),
     },
     {
-      title: "Token ID",
-      dataIndex: "tokenId",
-      key: "tokenId",
-      sorter: (a, b) => a.tokenId > b.tokenId,
+      title: "Wallet Balance",
+      dataIndex: "walletBalance",
+      key: "walletBalance",
+      sorter: (a, b) => a.walletBalance > b.walletBalance,
       sortDirections: ["descend", "ascend"],
-      ...getColumnSearchProps('tokenId'),
-    },
-    {
-      title: "Date Created",
-      dataIndex: "dateCreated",
-      key: "dateCreated",
-      sorter: (a, b) => new Date(a.dateCreated) > new Date(b.dateCreated),
-      sortDirections: ["descend", "ascend"],
-      render: (_, { dateCreated }) =>
+      render: (_, { walletBalance }) =>
         <div>
-          {new Date(dateCreated).getDate() +
-            "/" +
-            (new Date(dateCreated).getMonth() + 1) +
-            "/" +
-            new Date(dateCreated).getFullYear() +
-            " " +
-            new Date(dateCreated).getHours() +
-            ":" +
-            new Date(dateCreated).getMinutes() +
-            ":" +
-            new Date(dateCreated).getSeconds()}
+          {`${Number(walletBalance).toFixed(10)} ETH`}
         </div>
-    },
-    {
-      title: "Expiry Date",
-      dataIndex: "warrantyExpireDate",
-      key: "warrantyExpireDate",
-      sorter: (a, b) =>
-        new Date(a.warrantyExpireDate) > new Date(b.warrantyExpireDate),
-      sortDirections: ["descend", "ascend"]
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
-      ...getColumnSearchProps('status'),
-      render: (_, { status }) =>
-        <Tag
-          color={
-            status === "Success"
-              ? "green"
-              : status === "Pending" ? "geekblue" : "volcano"
-          }
-          key={status}
-        >
-          {status.toUpperCase()}
-        </Tag>
-    },
-    {
-      title: "Method Type",
-      dataIndex: "methodType",
-      key: "methodType",
-      ...getColumnSearchProps('methodType'),
-      render: (_, { methodType }) =>
-        <div>
-          {methodType === 0
-            ? "Safe Mint"
-            : methodType === 1 ? "Transfer" : "Burn"}
-        </div>
-    },
-    {
-      title: "Value",
-      dataIndex: "value",
-      key: "value",
-      sorter: (a, b) => a.value > b.value,
-      sortDirections: ["descend", "ascend"],
-      render: (_, { value }) =>
-        <div>
-          {`${(Number(value) * 1000000000).toFixed(2)} gwei`}
-        </div>
-    },
-    {
-      title: "Retry",
-      dataIndex: "retry",
-      key: "retry",
-      render: (_, record) => <Button type="text" onClick={()=>repeatTransactionHandler(record.txId)}><RedoOutlined /></Button>
     }
   ];
 
@@ -241,12 +161,13 @@ const CustomTable = props => {
       size="small"
       columns={columns}
       dataSource={tableData}
-      pagination={{ size: 'default', total: totalTransactions, pageSize: pageSize, showSizeChanger: true, responsive: true, onChange:onPageChangeHandler}}
+      pagination={{ size: 'default', total: totalData, pageSize: pageSize, showSizeChanger: true, responsive: true, onChange:onPageChangeHandler}}
       bordered
       scroll={{
         x: "max-content"
       }}
       loading={isLoading}
+      rowKey="id"
     />
   );
 };
