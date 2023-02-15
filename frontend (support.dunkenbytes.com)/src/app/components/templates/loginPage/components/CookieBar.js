@@ -3,13 +3,14 @@ import React, { useState } from "react";
 import CustomButton from "./../../../elements/CustomButton";
 import Link from "next/link";
 import { InfoCircleFilled, CheckCircleTwoTone } from "@ant-design/icons";
-import { Modal, Switch  } from "antd";
-// import "../../../../styles/antdOverrides.css";
+import { Modal, Switch } from "antd";
 
 const CookieBar = () => {
   const [openPreferences, setOpenPreferences] = useState(false);
   const [isAccepted, setIsAccepted] = useState(false);
-  const [analyticsCookiesSelected, setAnalyticsCookiesSelected] = useState(true);
+  const [analyticsCookiesSelected, setAnalyticsCookiesSelected] = useState(
+    true
+  );
   return (
     <div className={isAccepted ? styles.hide : styles.cookieBar}>
       <Modal
@@ -21,8 +22,7 @@ const CookieBar = () => {
           <CustomButton
             text="SAVE"
             onClickHandler={() => {
-              setIsAccepted(true), 
-              setOpenPreferences(false);
+              setIsAccepted(true), setOpenPreferences(false);
             }}
             type="NoBorder"
           />
@@ -43,7 +43,11 @@ const CookieBar = () => {
             <div className={styles.modalCookieTypeContainer}>
               <div className={styles.modalCookieTypeContainerOne}>
                 <strong>Required Cookies</strong>
-                <CheckCircleTwoTone className={styles.checkIcon} style={{color:'#fefefe', fontSize:'20px'} } twoToneColor="#4caf50"/>
+                <CheckCircleTwoTone
+                  className={styles.checkIcon}
+                  style={{ color: "#fefefe", fontSize: "20px" }}
+                  twoToneColor="#4caf50"
+                />
               </div>
               <div className={styles.modalCookieTypeContainerTwo}>
                 These cookies are essential so that you can move around the
@@ -54,7 +58,12 @@ const CookieBar = () => {
             <div className={styles.modalCookieTypeContainer}>
               <div className={styles.modalCookieTypeContainerOne}>
                 <strong>Analytics Cookies</strong>
-                <Switch defaultChecked onChange={()=>{setAnalyticsCookiesSelected(!analyticsCookiesSelected)}}/>
+                <Switch
+                  defaultChecked
+                  onChange={() => {
+                    setAnalyticsCookiesSelected(!analyticsCookiesSelected);
+                  }}
+                />
               </div>
               <div className={styles.modalCookieTypeContainerTwo}>
                 These cookies help us to improve the user experience of our

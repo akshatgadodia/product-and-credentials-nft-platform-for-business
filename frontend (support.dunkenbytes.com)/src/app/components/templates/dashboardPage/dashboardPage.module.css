@@ -19,7 +19,6 @@
   padding: 10px 15px;
 }
 .performanceDiv hr {
-  padding: 0 !important;
   margin: 0 !important;
   width: 1px;
   background-color: var(--black);
@@ -46,7 +45,6 @@
   border-radius: 4px;
   width: 100%;
   height: 100%;
-  border: 1px solid var(--black);
 }
 .middleDiv span {
   display: flex;
@@ -54,7 +52,6 @@
   padding: 10px 15px;
 }
 .middleDiv hr {
-  padding: 0 !important;
   margin: 0 !important;
   width: 1px;
   background-color: var(--black);
@@ -63,11 +60,11 @@
 }
 .middleDivContainer {
   padding: 20px 20px;
-  /* padding-top: 100px !important; */
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 10px;
 }
 .stats {
   display: flex;
@@ -81,7 +78,6 @@
 }
 .statsDiv p {
   margin: 0 !important;
-  padding: 0 !important;
   font-size: 12.5px;
   color: var(--footerText);
 }
@@ -89,34 +85,28 @@
   margin: 0 !important;
   padding: 0 !important;
   color: var(--black);
-  font-size: 25px;
-}
-.chart {
-  /* transform: translateY(-10px) !important; */
+  font-size: 24px;
 }
 .messagesContainer {
   width: 100%;
   height: 100%;
-  overflow-y: scroll;
   padding: 0 !important;
   margin: 0 !important;
   display: flex !important;
   justify-content: center !important;
-  max-height: 483px !important;
+  max-height: 498px !important;
   color: var(--black) !important;
 }
 .newsContainer {
   width: 100%;
   height: 100%;
-  overflow-y: scroll;
   padding: 0 !important;
   margin: 0 !important;
   display: flex !important;
   flex-direction: column;
   justify-content: center !important;
   align-items: flex-start;
-  max-height: 483px !important;
-  min-height: 483px !important;
+  max-height: 498px !important;
   color: var(--black) !important;
 }
 .loadMoreButton {
@@ -131,7 +121,7 @@
   opacity: 0.9;
 }
 .loadMoreButton:disabled,
-.loadMoreButton[disabled]{
+.loadMoreButton[disabled] {
   opacity: 0.8;
   cursor: not-allowed;
   background-color: var(--darkWhite);
@@ -145,6 +135,10 @@
   font-size: 16px;
   cursor: pointer;
   color: var(--darkPurple);
+}
+.overflowScrolling {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 @media only screen and (max-width: 768px) {
   .dashboard {
@@ -161,13 +155,11 @@
   .middleContainer {
     flex-direction: column;
     gap: 20px;
+    max-height: fit-content !important;
   }
   .stats {
     flex-direction: column;
     gap: 20px;
-  }
-  .chart {
-    /* transform: translateX(200px) !important; */
   }
   .newsContainer {
     min-height: 0px !important;

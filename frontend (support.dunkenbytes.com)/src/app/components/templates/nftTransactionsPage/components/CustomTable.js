@@ -6,51 +6,51 @@ import { useHttpClient } from "@/app/hooks/useHttpClient";
 import Link from "next/link";
 
 const CustomTable = props => {
-  const { error, sendRequest, isLoading } = useHttpClient();
+  const { sendRequest, isLoading } = useHttpClient();
   const [tableData, setTableData] = useState(props.data);
   const [totalTransactions, setTotalTransactions] = useState(props.totalTransactions)
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
   const [filters, setFilters] = useState({});
   const searchInput = useRef(null);
-
   
   useEffect(() => {
     setTableData(props.data);
     setTotalTransactions(props.totalTransactions);
   }, [props]);
 
-  const handleSearch = (selectedKeys, confirm, dataIndex) => {
-    /* 
-      Code Here
-    */
-    confirm();
+  useEffect(() => {
+    const getData = async() => {
+      let queryParams = []
+      for (const key in filters) {
+        queryParams.push(JSON.stringify({[key]: filters[key]}))
+      }
+      const transactionsData = await sendRequest(`/nft-transaction/get-all-transactions?q=${queryParams}&page=${currentPage}&size=${pageSize}`);
+      setTableData(transactionsData.transactions)
+      setTotalTransactions(transactionsData.totalTransactions)
+    }
+    getData()
+  },[currentPage, pageSize, filters])
+
+  const handleSearch = async(selectedKeys, confirm, dataIndex, clearFilters) => {
+    confirm({closeDropdown : true});
     setFilters(prevState => ({
       ...prevState,
       [dataIndex]: selectedKeys[0]
   }));
   };
-
   const handleReset = (clearFilters, selectedKeys, confirm, dataIndex) => {
     clearFilters();
     const { [dataIndex]: tmp, ...rest } = filters;
     setFilters(rest);
   };
   const onPageChangeHandler = async (current, size) => {
-    /*
-      Code Here
-    */
-    console.log(current, size)
     setCurrentPage(current);
     setPageSize(size)
   }
   
   const repeatTransactionHandler = async(txId) => {
-    /*
-      Code Here
-    */
    await sendRequest('/nft-transaction/repeat-transaction',"POST",JSON.stringify({txId}))
-   
   }
 
   const getColumnSearchProps = (dataIndex) => ({
@@ -75,7 +75,7 @@ const CustomTable = props => {
         <Space>
           <Button
             type="primary"
-            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            onClick={() => handleSearch(selectedKeys, confirm, dataIndex, clearFilters)}
             icon={<SearchOutlined />}
             size="small"
             style={{
@@ -128,16 +128,16 @@ const CustomTable = props => {
       title: "Transaction Hash",
       dataIndex: "txId",
       key: "txId",
+      ...getColumnSearchProps('txId'),
       render: (_, { txId }) =>
         <Link href={`/transactions/nft/${txId}`}>
-          {`${txId.slice(0, 2)}...${txId.slice(-3)}`}
+          {`${txId.slice(0, 4)}...${txId.slice(-6)}`}
         </Link>
     },
     {
       title: "Created By",
       dataIndex: "createdBy",
       key: "createdBy",
-      ...getColumnSearchProps('createdBy'),
       render: (_, { createdBy }) =>
         <Link href={`/user/${createdBy._id}`}>
           {createdBy.name}
@@ -148,6 +148,10 @@ const CustomTable = props => {
       dataIndex: "buyerMetamaskAddress",
       key: "buyerMetamaskAddress",
       ...getColumnSearchProps('buyerMetamaskAddress'),
+      render: (_, { buyerMetamaskAddress }) =>
+      <div>
+        {`${buyerMetamaskAddress.slice(0, 5)}...${buyerMetamaskAddress.slice(-8)}`}
+      </div>
     },
     {
       title: "Token ID",

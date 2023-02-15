@@ -1,14 +1,9 @@
 .mainDiv{
     width: 100%;
-    /* margin: 0 !important; */
     padding: 10px 20px;
-    /* background-color: var(--darkWhite); */
     border-bottom: 1px solid rgba(12,12,13,0.05);
     display: flex;
     justify-content: space-between;
-}
-.mainDiv:first-child{
-    margin-top: 50px;
 }
 .mainDiv:hover{
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;

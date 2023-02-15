@@ -34,6 +34,20 @@
   gap: 20px;
   align-items: center;
 }
+.linksContainer{
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  
+}
+.link{
+  color: var(--purple) !important;
+  font-weight: 600;
+  font-size: 16px;
+}
+.link:hover{
+  opacity: 0.8;
+}
 .dropdownButton{
   background-color: transparent;
   height: fit-content;
@@ -50,7 +64,41 @@
   opacity: 0.85;
   transition: opacity .2s;
 }
-
+.avatarItem {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  height: 40px;
+  -webkit-box-pack: justify;
+  justify-content: flex-start;
+  align-items: center !important;
+  gap: 20px;
+  font-weight: 600;
+  font-size: 16px;
+  width: 200px !important;
+}
+.avatarItemIcon {
+  font-size: 18px;
+}
+.avatarItemButton {
+  background-color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.button{
+  background: transparent !important;
+  border: none;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+  width: fit-content;
+  margin: 0;
+  padding: 0;
+}
 
 @media only screen and (max-width:768px){
   .navbar {

@@ -1,5 +1,6 @@
 import React from "react";
 import DefaultLayout from "@/app/components/layouts/DefaultLayout";
+import HomePage from '@/app/components/templates/homePage/HomePage';
 
 const Home = props => {
   return (

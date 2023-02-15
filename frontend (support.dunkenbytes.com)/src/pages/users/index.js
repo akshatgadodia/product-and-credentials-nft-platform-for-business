@@ -1,7 +1,7 @@
 import React from "react";
 import DefaultLayout from "@/app/components/layouts/DefaultLayout";
 import baseURL from "@/app/constants/baseURL";
-import UserPage from '@/app/components/templates/UserPage/UserPage';
+import UserPage from '@/app/components/templates/userPage/UserPage';
 
 const User = (props) => {
   return (

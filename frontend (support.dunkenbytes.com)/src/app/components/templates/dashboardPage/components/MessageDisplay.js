@@ -5,10 +5,10 @@ import Link from "next/link";
 const MessageDisplay = props => {
   const ColorList = ["#f56a00", "#7265e6", "#ffbf00", "#00a2ae"];
   let style;
-  if(props.isRead) style=`${styles.mainDiv} ${styles.read}`
-  else style=`${styles.mainDiv}`
+  if (props.isRead) style = `${styles.mainDiv} ${styles.read}`;
+  else style = `${styles.mainDiv}`;
   return (
-    <Link href="" className={style}>
+    <Link href={`/messages/${props.id}`} className={style}>
       <div className={styles.insideDiv}>
         <Avatar
           style={{

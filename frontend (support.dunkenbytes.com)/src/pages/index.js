@@ -1,17 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import DefaultLayout from "@/app/components/layouts/DefaultLayout";
 import Dashboard from "@/app/components/templates/dashboardPage/DashboardPage";
-import Login from "@/app/components/templates/loginPage/LoginPage";
-import AppContext from "@/app/context/AppContext";
 import baseURL from "@/app/constants/baseURL";
 
 const Home = props => {
-  const { loggedInDetails } = useContext(AppContext);
-  return !loggedInDetails.isLoggedIn
-    ? <Login />
-    : <DefaultLayout>
-        <Dashboard props={props} />
-      </DefaultLayout>;
+  return (
+    <DefaultLayout>
+      <Dashboard props={props} />
+    </DefaultLayout>
+  );
 };
 
 export default Home;
@@ -30,7 +27,9 @@ export async function getStaticProps(context) {
       `${baseURL}/admin-dashboard/get-performance-data`,
       config
     );
-    const messages = await fetch(`${baseURL}/message/get-messages?currentPage=1`);
+    const messages = await fetch(
+      `${baseURL}/message/get-messages?currentPage=1`
+    );
     const messagesData = await messages.json();
     const performanceData = await performance.json();
     const gas = await fetch(
@@ -51,7 +50,7 @@ export async function getStaticProps(context) {
     for (let i = 9; i >= 0; i--) {
       const data = gasHistoryData[i];
       const dataObject = [
-        new Date(data.timestamp).toLocaleString(),
+        new Date(data.timestamp).toLocaleTimeString(),
         data.gasPrice.low,
         data.gasPrice.open,
         data.gasPrice.close,

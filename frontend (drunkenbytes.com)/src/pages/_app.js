@@ -12,7 +12,7 @@ export default function MyApp({ Component, pageProps }) {
   const [loggedInDetails, dispatch] = useReducer( reducer, initialLoggedInDetails);
   useLayoutEffect(() => {
     const setLoggedInDetails = async () => {
-      const role = Cookies.get('supportUserRole')
+      const role = Cookies.get('userRole')
       if (role) {
           dispatch({
             type: "UserLogin",

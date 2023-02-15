@@ -3,6 +3,7 @@ import { notification } from "antd";
 import baseURL from "@/app/constants/baseURL";
 import "@/app/styles/antdOverrides.css";
 import AppContext from "@/app/context/AppContext";
+import NProgress from 'nprogress'
 
 export const useHttpClient = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -18,6 +19,7 @@ export const useHttpClient = () => {
       }
     ) => {
       setIsLoading(true);
+      NProgress.start()
       try {
         const response = await fetch(`${baseURL}${url}`, {
           method,
@@ -33,11 +35,13 @@ export const useHttpClient = () => {
           throw new Error(responseData.data.error);
         }
         setIsLoading(false);
+        NProgress.done();
         return responseData.data;
       } catch (err) {
         console.log(err)
         setError(err.message);
         setIsLoading(false);
+        NProgress.done();
         notification.error({
           message: "Error",
           description: err.message,

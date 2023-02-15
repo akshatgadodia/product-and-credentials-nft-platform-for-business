@@ -18,7 +18,7 @@ export async function getStaticPaths() {
     paths: [
       { params: { txId: "0xa046091545e6daaa542e80e86fe7798a2e349da98628706e42ccd56259eca762" } }
     ],
-    fallback: true // false or 'blocking'
+    fallback: 'blocking' // false or 'blocking'
   };
 }
 

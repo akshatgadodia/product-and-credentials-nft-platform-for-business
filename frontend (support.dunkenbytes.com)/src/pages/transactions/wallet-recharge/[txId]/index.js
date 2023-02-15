@@ -6,7 +6,7 @@ import NftTransactionsSinglePage from '../../../../app/components/templates/nftT
 const NftTransaction = (props) => {
   return (
     <DefaultLayout>
-      <NftTransactionsSinglePage transactionData={props.transaction}/>
+      {/* <NftTransactionsSinglePage transactionData={props.transaction}/> */}
     </DefaultLayout>
   );
 };
@@ -23,27 +23,27 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({params}) {
-  const txId = params.txId;
-  const config = {
-    method: "GET",
-    body: null,
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json"
-    },
-    credentials: "include"
-  };
-  try {
-    const transactions = await fetch(`${baseURL}/nft-transaction/get-transaction?transactionHash=${txId}`,config);
-    const transactionsData = await transactions.json();
-    return {
-      props: {
-        transaction:transactionsData.data.transaction,
-      },
-      revalidate: 60
-    };
-  } catch (err) {
-    console.log(err);
+  // const txId = params.txId;
+  // const config = {
+  //   method: "GET",
+  //   body: null,
+  //   headers: {
+  //     Accept: "application/json",
+  //     "Content-Type": "application/json"
+  //   },
+  //   credentials: "include"
+  // };
+  // try {
+  //   const transactions = await fetch(`${baseURL}/nft-transaction/get-transaction?transactionHash=${txId}`,config);
+  //   const transactionsData = await transactions.json();
+  //   return {
+  //     props: {
+  //       transaction:transactionsData.data.transaction,
+  //     },
+  //     revalidate: 60
+  //   };
+  // } catch (err) {
+  //   console.log(err);
     return {
       props: {
         transactions:[],
@@ -51,6 +51,6 @@ export async function getStaticProps({params}) {
       },
       revalidate: 60
     };
-  }
+  // }
 }
 

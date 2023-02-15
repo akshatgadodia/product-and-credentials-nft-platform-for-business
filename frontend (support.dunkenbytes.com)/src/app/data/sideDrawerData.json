@@ -1,5 +1,5 @@
 {
-  "adminData": [
+  "ADMIN": [
     {
       "key": "1",
       "title": "NFT",
@@ -72,7 +72,7 @@
       ]
     }
   ],
-  "supportData": [
+  "SUPPORT": [
     {
       "key": "1",
       "title": "Transactions",
@@ -101,7 +101,7 @@
       ]
     }
   ],
-  "editorData": [
+  "EDITOR": [
     {
       "key": "1",
       "title": "Articles",

@@ -7,7 +7,7 @@ import { Tag } from "antd";
 
 const NftTransactionsSinglePage = props => {
   const transactionData = props.transactionData;
-  let date = transactionData.dateCreated;
+  // let date = transactionData.dateCreated;
   return (
     <div className={`${styles.transactionSingleDiv}`}>
       <Head>
@@ -44,22 +44,6 @@ const NftTransactionsSinglePage = props => {
           <p className={styles.title}>Token ID: </p>
           <p className={styles.value}>
             {transactionData.tokenId}
-          </p>
-        </div>
-        <div className={styles.detail}>
-          <p className={styles.title}>Date Crated: </p>
-          <p className={styles.value}>
-            {new Date(date).getDate() +
-              "/" +
-              (new Date(date).getMonth() + 1) +
-              "/" +
-              new Date(date).getFullYear() +
-              " " +
-              new Date(date).getHours() +
-              ":" +
-              new Date(date).getMinutes() +
-              ":" +
-              new Date(date).getSeconds()}
           </p>
         </div>
         <div className={styles.detail}>

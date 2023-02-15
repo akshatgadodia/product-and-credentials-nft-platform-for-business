@@ -1,16 +1,18 @@
 .navbar {
-  position: sticky;
+  position: fixed;
   top: 0;
   z-index: 990;
   display: flex;
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--white);
+  background: transparent !important;
   height: 80px;
   padding: 15px 10vw;
 }
 .fixedNavbar {
+  transition: all 0.3s ease-in !important;
+  background: var(--white) !important;
   box-shadow: 0 1px 25px 0 rgb(0 0 0 / 5%);
 }
 .logo {
@@ -64,12 +66,7 @@
 }
 @media only screen and (max-width: 768px) {
   .navbar {
-    height: 80px;
     padding: 15px 5vw;
-    background-color: var(--white);
-  }
-  .fixedNavbar {
-    box-shadow: 0 0 5px var(--black);
   }
   .logo {
     height: 40px;

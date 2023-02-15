@@ -1,15 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styles from "./nftTransactionsSinglePage.module.css";
 import Head from "next/head";
-import { useHttpClient } from "@/app/hooks/useHttpClient";
 import Link from "next/link";
 import { Button, Tag } from "antd";
-import CustomButton from './../../elements/CustomButton';
 
 const NftTransactionsSinglePage = props => {
-  const transactionData = props.transactionData;
-  let date = transactionData.dateCreated;
-
+  const transactionData = props.transactionData
   return (
     <div className={`${styles.transactionSingleDiv}`}>
       <Head>
@@ -52,17 +48,17 @@ const NftTransactionsSinglePage = props => {
         <div className={styles.detail}>
           <p className={styles.title}>Date Crated: </p>
           <p className={styles.value}>
-            {new Date(date).getDate() +
+            {new Date(transactionData.dateCreated).getDate() +
               "/" +
-              (new Date(date).getMonth() + 1) +
+              (new Date(transactionData.dateCreated).getMonth() + 1) +
               "/" +
-              new Date(date).getFullYear() +
+              new Date(transactionData.dateCreated).getFullYear() +
               " " +
-              new Date(date).getHours() +
+              new Date(transactionData.dateCreated).getHours() +
               ":" +
-              new Date(date).getMinutes() +
+              new Date(transactionData.dateCreated).getMinutes() +
               ":" +
-              new Date(date).getSeconds()}
+              new Date(transactionData.dateCreated).getSeconds()}
           </p>
         </div>
         <div className={styles.detail}>

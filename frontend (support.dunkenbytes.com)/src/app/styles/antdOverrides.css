@@ -16,6 +16,9 @@
   background-color: var(--purple) !important;
 }
 
+.ant-input{
+  border-color: var(--black) !important;
+}
 /* @/app/components/templates/loginPage/components/CookieBar.js*/
 .cookieBarModal {
   width: 600px !important;

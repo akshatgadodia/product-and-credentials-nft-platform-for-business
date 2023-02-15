@@ -1,10 +1,10 @@
 import React from "react";
 import DefaultLayout from "@/app/components/layouts/DefaultLayout";
-import ArticlesPage from "../../app/components/templates/articlesPage/ArticlesPage";
+import ArticlesAllPage from "../../app/components/templates/articlesAllPage/ArticlesAllPage";
 const Articles = () => {
   return (
     <DefaultLayout>
-      <ArticlesPage />
+      <ArticlesAllPage />
     </DefaultLayout>
   );
 };
