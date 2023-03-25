@@ -1,20 +1,18 @@
 .navbar {
-  position: sticky;
+  position: fixed;
   top: 0;
-  /* left: 0;
-  right: 0;
-  bottom: auto; */
+  left: 0;
   z-index: 990;
   display: flex;
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  background-color: hsla(0, 0%, 100%, 0);
+  background: transparent;
   height: 80px;
   padding: 15px 10vw;
 }
 .fixedNavbar{
-  background-color: var(--white);
+  background: var(--white);
   box-shadow: 0 1px 25px 0 rgb(0 0 0 / 5%);
 }
 .logo{
@@ -38,7 +36,6 @@
   display: flex;
   justify-content: space-between;
   gap: 20px;
-  
 }
 .link{
   color: var(--purple) !important;
@@ -118,5 +115,8 @@
     justify-content: space-between;
     gap: 20px;
     align-items: center;
+  }
+  .linksContainer{
+    display: none;
   }
 }

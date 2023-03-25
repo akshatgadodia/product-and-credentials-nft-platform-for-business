@@ -19,6 +19,10 @@
 .ant-input{
   border-color: var(--black) !important;
 }
+
+.ant-upload, .ant-upload-select, .ant-upload-list-item-container{
+  width: 100% !important;
+}
 /* @/app/components/templates/loginPage/components/CookieBar.js*/
 .cookieBarModal {
   width: 600px !important;

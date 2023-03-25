@@ -1,113 +1,96 @@
-import React, { useContext } from "react";
-import CookieBar from "./components/CookieBar";
-import styles from "./login.module.css";
-import Image from "next/image";
-import { Button, Form, Input } from "antd";
-import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import styles from "./profilePage.module.css";
 import { useHttpClient } from "@/app/hooks/useHttpClient";
-import AppContext from "@/app/context/AppContext";
-import Cookies from "js-cookie";
-import Loader from "@/app/components/modules/Loader";
+import { Image, Tabs, Skeleton } from 'antd';
+import Head from 'next/head'
+import NftTable from "./components/NftTable";
+import WalletRechargeTable from "./components/WalletRechargeTable";
 
-const Login = () => {
-  const { error, sendRequest, isLoading } = useHttpClient();
-  const { dispatch } = useContext(AppContext);
-  const onFinish = async values => {
-    try {
-      await sendRequest(
-        "/support-user/login",
-        "POST",
-        JSON.stringify({
-          email: values.email,
-          password: values.password
-        }),
-        {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        }
-      );
-      if (!error) {
-        const role = Cookies.get("supportUserRole");
-        dispatch({
-          type: "UserLogin",
-          payload: { role }
-        });
-      }
-    } catch (err) {}
-  };
+const ProfilePage = () => {
+  const { error, sendRequest, clearError, isLoading } = useHttpClient();
+  const [profileData, setProfileData] = useState({});
+  useEffect(() => {
+    const sendFetchRequest = async () => {
+      const result = await sendRequest("/user/get-user-profile");
+      setProfileData(result.user)
+    }
+    sendFetchRequest();
+  }, [])
+
   return (
-    <div className={styles.supportLogin}>
-      <Loader isLoading={isLoading} />
-      <CookieBar />
-      <div className={styles.container}>
-        <div className={styles.logoContainer}>
-          <Image
-            src="/images/drunken-bytes-logo-icon.png"
-            fill
-            style={{ objectFit: "contain" }}
-          />
-        </div>
-        <div className={styles.loginDiv}>
-          <h1> Login to Drunken Bytes</h1>
-          <Form
-            name="basic"
-            style={{ maxWidth: "100%" }}
-            onFinish={onFinish}
-            autoComplete="on"
-          >
-            <Form.Item
-              name="email"
-              rules={[
-                {
-                  type: "email",
-                  message: "The input is not valid Email!"
-                },
-                {
-                  required: true,
-                  message: "Please input your Email!"
-                }
-              ]}
-              className={styles.formItem}
-            >
-              <Input placeholder="Email" className={styles.input} />
-            </Form.Item>
+    <div className={styles.profile}>
+      <Head>
+        <title>Profile | Drunken Bytes</title>
+        <meta name="description" content="Get access to your personalized profile page on Drunken Bytes. View your account information, update your profile, and manage your settings." />
+        <meta name="keywords" content="profile page, account information, user settings, personalization, manage account. Drunken Bytes" />
+      </Head>
+      <h1 className={styles.heading}>Drunken Bytes Profile</h1>
+      <p className={styles.paragraph}>Here you can find your profile information</p>
+        <div className={styles.profileDiv}>
+          <div className={styles.headerDiv}><strong>User Profile</strong></div>
+          <div className={styles.contentDiv}>
+            <div className={styles.imageDiv}>
+              {
+                (profileData?.logo === undefined) ? <Skeleton.Avatar shape="circle" active block size={200} /> :
+                  <Image
+                    width={200}
+                    src={profileData.logo}
+                    alt="brand-logo"                  
+                    placeholder={<Skeleton.Avatar shape="circle" active block size={200} className={styles.logoSkeleton}/>}
+                  />
+              }
+            </div>
+            <div className={styles.informationDiv}>
+              <div className={styles.informationContent}>
+                {(profileData?.name === undefined) ? <Skeleton.Input active block /> : <>
+                  <p>Business Name</p>
+                  <p>{profileData.name}</p>
+                </>}
+              </div>
+              <div className={styles.informationContent}>
+                {(profileData?.accountAddress === undefined) ? <Skeleton.Input active block /> : <>
+                  <p>Wallet Address</p>
+                  <p>{profileData.accountAddress}</p>
+                </>}
 
-            <Form.Item
-              name="password"
-              rules={[
-                { required: true, message: "Please input your password!" }
-              ]}
-              className={styles.formItem}
-            >
-              <Input.Password placeholder="Password" className={styles.input} />
-            </Form.Item>
-            <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className={styles.button}
-              >
-                LOGIN
-              </Button>
-            </Form.Item>
-          </Form>
-          <p>
-            Read our{" "}
-            <Link href="" className={styles.link}>
-              Terms & Conditions
-            </Link>,{" "}
-            <Link href="" className={styles.link}>
-              Privacy Policy
-            </Link>{" "}
-            and{" "}
-            <Link href="" className={styles.link}>
-              Cookie Policy
-            </Link>
-          </p>
+              </div>
+              <div className={styles.informationContent}>
+                {(profileData?.email === undefined) ? <Skeleton.Input active block /> : <>
+                  <p>Business Email</p>
+                  <p>{profileData.email}</p>
+                </>}
+
+              </div>
+              <div className={styles.informationContent}>
+                {(profileData?.walletBalance === undefined) ? <Skeleton.Input active block /> : <>
+                  <p>Wallet Balance</p>
+                  <p>{profileData.walletBalance} ETH</p>
+                </>}
+
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      <Tabs
+        defaultActiveKey="1"
+        className="profile-tabs"
+        size="middle"
+        type="card"
+        animated
+      >
+        <Tabs.TabPane tab="NFT Transactions" key="1" className="tab-pane">
+          <NftTable />
+        </Tabs.TabPane>
+        <Tabs.TabPane tab="Wallet Transactions" key="2" className="tab-pane">
+          <WalletRechargeTable />
+        </Tabs.TabPane>
+        <Tabs.TabPane tab="Template" key="3" className="tab-pane">
+          HAHA
+
+        </Tabs.TabPane>
+      </Tabs>
     </div>
   );
 };
 
-export default Login;
+export default ProfilePage;

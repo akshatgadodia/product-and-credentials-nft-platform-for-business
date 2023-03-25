@@ -28,7 +28,7 @@ export async function getStaticProps(context) {
       config
     );
     const messages = await fetch(
-      `${baseURL}/message/get-messages?currentPage=1`
+      `${baseURL}/message/get-dashboard-messages?currentPage=1`
     );
     const messagesData = await messages.json();
     const performanceData = await performance.json();

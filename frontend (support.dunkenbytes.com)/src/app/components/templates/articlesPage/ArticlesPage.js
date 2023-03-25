@@ -1,16 +1,28 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import styles from "./articlesPage.module.css";
 import Head from "next/head";
-
-const Login = () => {
+import dynamic from "next/dynamic";
+let EditorParser = dynamic(() => import("@/app/components/elements/EditorParser"), {
+  ssr: false
+});
+const Article = (props) => {
+  const [t, st] = useState(false);
+  useEffect(()=>{
+    st(true);
+    console.log(props.articleData.data.article.title);
+  console.log(props.articleData.data.article.content);
+  },[])
+  
   return (
-    <div className={styles.supportLogin}>
+    <div className={styles.supportArticle}>
       <Head>
         <title>Articles | Support Drunken Bytes</title>
       </Head>
-      Articles
+      t && <EditorParser data={props.articleData.data.article.content}/>
+      {/* <EditorParser data={data}/> */}
+
     </div>
   );
 };
 
-export default Login;
+export default Article;

@@ -24,7 +24,7 @@ export async function getStaticProps(context) {
     credentials: "include"
   };
   try {
-    const users = await fetch(`${baseURL}/user/get-all-users`,config);
+    const users = await fetch(`${baseURL}/user/get-all-users?q={}&page=1&size=10`,config);
     const usersData = await users.json();
     return {
       props: {

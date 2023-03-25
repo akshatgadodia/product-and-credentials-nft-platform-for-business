@@ -2,6 +2,7 @@ import React from "react";
 import styles from "../stylesheets/messageDisplay.module.css";
 import { Avatar } from "antd";
 import Link from "next/link";
+
 const MessageDisplay = props => {
   const ColorList = ["#f56a00", "#7265e6", "#ffbf00", "#00a2ae"];
   let style;
@@ -18,11 +19,11 @@ const MessageDisplay = props => {
           }}
           className={styles.avatar}
         >
-          {props.messageBy.charAt(0).toUpperCase()}
+          {props.messageBy?.charAt(0).toUpperCase()}
         </Avatar>
         <div className={styles.textDiv}>
           <p>
-            {props.messageBy}
+            {props.messageBy && props.messageBy}
           </p>
           <span>
             {props.subject}

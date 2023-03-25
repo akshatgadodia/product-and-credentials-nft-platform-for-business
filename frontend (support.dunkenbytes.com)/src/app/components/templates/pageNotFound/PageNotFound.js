@@ -10,144 +10,144 @@ const PageNotFound = () => {
       <Head>
         <title>Page Not Found | Support Drunken Bytes</title>
       </Head>
-      <div class={`${styles.container} ${styles.containerStar}`}>
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star1} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
-        <div class={styles.star2} />
+      <div className={`${styles.container} ${styles.containerStar}`}>
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star1} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
+        <div className={styles.star2} />
       </div>
-      <div class={`${styles.container} ${styles.containerBird}`}>
-        <div class={`${styles.bird} ${styles.birdAnim}`}>
-          <div class={`${styles.birdContainer}`}>
-            <div class={`${styles.wing} ${styles.wingLeft}`}>
-              <div class={`${styles.wingLeftTop}`} />
+      <div className={`${styles.container} ${styles.containerBird}`}>
+        <div className={`${styles.bird} ${styles.birdAnim}`}>
+          <div className={`${styles.birdContainer}`}>
+            <div className={`${styles.wing} ${styles.wingLeft}`}>
+              <div className={`${styles.wingLeftTop}`} />
             </div>
-            <div class={`${styles.wing} ${styles.wingLeft}`}>
-              <div class={`${styles.wingRightTop}`} />
-            </div>
-          </div>
-        </div>
-        <div class={`${styles.bird} ${styles.birdAnim}`}>
-          <div class={`${styles.birdContainer}`}>
-            <div class={`${styles.wing} ${styles.wingLeft}`}>
-              <div class={`${styles.wingLeftTop}`} />
-            </div>
-            <div class={`${styles.wing} ${styles.wingLeft}`}>
-              <div class={`${styles.wingRightTop}`} />
+            <div className={`${styles.wing} ${styles.wingLeft}`}>
+              <div className={`${styles.wingRightTop}`} />
             </div>
           </div>
         </div>
-        <div class={`${styles.bird} ${styles.birdAnim}`}>
-          <div class={`${styles.birdContainer}`}>
-            <div class={`${styles.wing} ${styles.wingLeft}`}>
-              <div class={`${styles.wingLeftTop}`} />
+        <div className={`${styles.bird} ${styles.birdAnim}`}>
+          <div className={`${styles.birdContainer}`}>
+            <div className={`${styles.wing} ${styles.wingLeft}`}>
+              <div className={`${styles.wingLeftTop}`} />
             </div>
-            <div class={`${styles.wing} ${styles.wingLeft}`}>
-              <div class={`${styles.wingRightTop}`} />
-            </div>
-          </div>
-        </div>
-        <div class={`${styles.bird} ${styles.birdAnim}`}>
-          <div class={`${styles.birdContainer}`}>
-            <div class={`${styles.wing} ${styles.wingLeft}`}>
-              <div class={`${styles.wingLeftTop}`} />
-            </div>
-            <div class={`${styles.wing} ${styles.wingLeft}`}>
-              <div class={`${styles.wingRightTop}`} />
+            <div className={`${styles.wing} ${styles.wingLeft}`}>
+              <div className={`${styles.wingRightTop}`} />
             </div>
           </div>
         </div>
-        <div class={`${styles.bird} ${styles.birdAnim}`}>
-          <div class={`${styles.birdContainer}`}>
-            <div class={`${styles.wing} ${styles.wingLeft}`}>
-              <div class={`${styles.wingLeftTop}`} />
+        <div className={`${styles.bird} ${styles.birdAnim}`}>
+          <div className={`${styles.birdContainer}`}>
+            <div className={`${styles.wing} ${styles.wingLeft}`}>
+              <div className={`${styles.wingLeftTop}`} />
             </div>
-            <div class={`${styles.wing} ${styles.wingLeft}`}>
-              <div class={`${styles.wingRightTop}`} />
-            </div>
-          </div>
-        </div>
-        <div class={`${styles.bird} ${styles.birdAnim}`}>
-          <div class={`${styles.birdContainer}`}>
-            <div class={`${styles.wing} ${styles.wingLeft}`}>
-              <div class={`${styles.wingLeftTop}`} />
-            </div>
-            <div class={`${styles.wing} ${styles.wingLeft}`}>
-              <div class={`${styles.wingRightTop}`} />
+            <div className={`${styles.wing} ${styles.wingLeft}`}>
+              <div className={`${styles.wingRightTop}`} />
             </div>
           </div>
         </div>
-        <div class={styles.containerTitle}>
-          <div class={styles.title}>
-            <div class={styles.number}>4</div>
-            <div class={styles.moon}>
-              <div class={styles.face}>
-                <div class={styles.mouth} />
-                <div class={styles.eyes}>
-                  <div class={styles.eyeLeft} />
-                  <div class={styles.eyeRight} />
+        <div className={`${styles.bird} ${styles.birdAnim}`}>
+          <div className={`${styles.birdContainer}`}>
+            <div className={`${styles.wing} ${styles.wingLeft}`}>
+              <div className={`${styles.wingLeftTop}`} />
+            </div>
+            <div className={`${styles.wing} ${styles.wingLeft}`}>
+              <div className={`${styles.wingRightTop}`} />
+            </div>
+          </div>
+        </div>
+        <div className={`${styles.bird} ${styles.birdAnim}`}>
+          <div className={`${styles.birdContainer}`}>
+            <div className={`${styles.wing} ${styles.wingLeft}`}>
+              <div className={`${styles.wingLeftTop}`} />
+            </div>
+            <div className={`${styles.wing} ${styles.wingLeft}`}>
+              <div className={`${styles.wingRightTop}`} />
+            </div>
+          </div>
+        </div>
+        <div className={`${styles.bird} ${styles.birdAnim}`}>
+          <div className={`${styles.birdContainer}`}>
+            <div className={`${styles.wing} ${styles.wingLeft}`}>
+              <div className={`${styles.wingLeftTop}`} />
+            </div>
+            <div className={`${styles.wing} ${styles.wingLeft}`}>
+              <div className={`${styles.wingRightTop}`} />
+            </div>
+          </div>
+        </div>
+        <div className={styles.containerTitle}>
+          <div className={styles.title}>
+            <div className={styles.number}>4</div>
+            <div className={styles.moon}>
+              <div className={styles.face}>
+                <div className={styles.mouth} />
+                <div className={styles.eyes}>
+                  <div className={styles.eyeLeft} />
+                  <div className={styles.eyeRight} />
                 </div>
               </div>
             </div>
-            <div class={styles.number}>4</div>
+            <div className={styles.number}>4</div>
           </div>
-          <div class={styles.subtitle}>
+          <div className={styles.subtitle}>
             Oops. Looks like you took a wrong turn.
           </div>
           <button

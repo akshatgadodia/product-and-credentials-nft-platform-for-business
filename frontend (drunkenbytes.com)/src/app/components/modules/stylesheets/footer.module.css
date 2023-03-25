@@ -77,13 +77,14 @@
 @media only screen and (max-width: 768px) {
   .footer {
     width: 100%;
-    padding: 20px 6vw;
+    padding: 40px 6vw;
   }
   .mainDiv {
     gap: 50px;
     flex-direction: column;
   }
   .companyContainer {
+    max-width: 100%;
     align-items: center;
     text-align: center;
   }

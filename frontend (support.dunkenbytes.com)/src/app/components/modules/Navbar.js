@@ -6,11 +6,14 @@ import { UserOutlined, LogoutOutlined, LockOutlined } from "@ant-design/icons";
 import { Dropdown, Avatar } from "antd";
 import { useHttpClient } from "@/app/hooks/useHttpClient";
 import AppContext from '@/app/context/AppContext';
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 const Navbar = () => {
   const { error, sendRequest, isLoading } = useHttpClient();
   const [isNavBarFixed, setNavBarFixed] = useState(false);
   const { dispatch } = useContext(AppContext);
+  const router = useRouter();
 
   const handleScroll = () => {
     if (window.scrollY >= 30) {
@@ -31,6 +34,8 @@ const Navbar = () => {
         dispatch({
           type: "UserLogout"
         });
+        router.push("/login");
+        Cookies.remove('supportUserRole');
       }
     } catch (err) {}
   };

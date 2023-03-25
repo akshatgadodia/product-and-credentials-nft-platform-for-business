@@ -44,6 +44,11 @@
       "data": [
         {
           "key": "4-A",
+          "title": "Write an Article",
+          "link": "/articles/write"
+        },
+        {
+          "key": "4-B",
           "title": "View All Articles",
           "link": "/articles"
         }
@@ -55,6 +60,11 @@
       "data": [
         {
           "key": "5-A",
+          "title": "Write a Blog",
+          "link": "/blogs/write"
+        },
+        {
+          "key": "5-B",
           "title": "View All Blogs",
           "link": "/blogs"
         }

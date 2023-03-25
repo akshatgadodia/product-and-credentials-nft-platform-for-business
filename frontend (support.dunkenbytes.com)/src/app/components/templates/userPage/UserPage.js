@@ -13,7 +13,7 @@ const UserPage = props => {
       <p>View all Users.</p>
       <CustomTable
         data={props.users}
-        totalTransactions={props.totalUsers}
+        totolData={props.totalUsers}
       />
     </div>
   );

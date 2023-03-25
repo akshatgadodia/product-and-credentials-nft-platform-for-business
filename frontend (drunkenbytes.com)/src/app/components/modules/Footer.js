@@ -17,41 +17,44 @@ const Footer = () => {
         <div className={styles.containersContainer}>
           <div className={styles.container}>
             <p>Company</p>
-            <Link href="" className={styles.containerLinks}>
+            <Link href="/about" className={styles.containerLinks}>
               About
+            </Link>
+            <Link href="/careers" className={styles.containerLinks}>
+              Careers
             </Link>
           </div>
           <div className={styles.container}>
             <p>Product</p>
-            <Link href="" className={styles.containerLinks}>
+            <Link href="/pricing" className={styles.containerLinks}>
               Pricing
             </Link>
-            <Link href="" className={styles.containerLinks}>
+            <Link href="/why-choose-us" className={styles.containerLinks}>
               Why Choose Us?
             </Link>
           </div>
           <div className={styles.container}>
             <p>Docs & Help</p>
-            <Link href="" className={styles.containerLinks}>
+            <Link href="/documentation" className={styles.containerLinks}>
               Documentation
             </Link>
-            <Link href="" className={styles.containerLinks}>
+            <Link href="/blogs" className={styles.containerLinks}>
               Blogs
             </Link>
-            <Link href="" className={styles.containerLinks}>
+            <Link href="/help-center" className={styles.containerLinks}>
               Help Center
             </Link>
-            <Link href="" className={styles.containerLinks}>
+            <Link href="/faq" className={styles.containerLinks}>
               FAQ
             </Link>
           </div>
           <div className={styles.container}>
             <p>Get in Touch</p>
-            <Link href="" className={styles.containerLinks}>
+            <Link href="/contact-us" className={styles.containerLinks}>
               Contact Us
             </Link>
-            <Link href="" className={styles.containerLinks}>
-              Get a Quote
+            <Link href="/raise-issue" className={styles.containerLinks}>
+              Raise Issue
             </Link>
           </div>
         </div>

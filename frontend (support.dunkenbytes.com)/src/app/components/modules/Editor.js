@@ -7,7 +7,6 @@ import { createReactEditorJS } from "react-editor-js";
 
 const Editor = ({ data, editorCore }) => {
   const ReactEditorJS = createReactEditorJS();
-  // const editorCore = React.useRef(null);
   const handleInitialize = instance => {
     editorCore.current = instance;
   };

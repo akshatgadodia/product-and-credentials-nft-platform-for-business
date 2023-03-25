@@ -31,7 +31,7 @@ export const useHttpClient = () => {
         const responseData = await response.json();
         // console.log(responseData);
         if (!responseData.success) {
-          console.log(responseData)
+          // console.log(responseData)
           throw new Error(responseData.data.error);
         }
         setIsLoading(false);

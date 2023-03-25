@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styles from "./dashboardPage.module.css";
 import PerformanceDisplay from "./components/PerformanceDisplay";
 import { useContext, useState } from "react";
@@ -19,6 +19,15 @@ const Dashboard = props => {
   const [newsData, setNewsData] = useState(props.props.newsData);
   const [nextNewsPage, setNextNewsPage] = useState(props.props.nextNewsPage);
   const [loadMoreDisabled, setLoadMoreDisabled] = useState(false);
+
+  useEffect(()=>{
+    const getMessagesByRole = async() => {
+      const messages = await sendRequest(`/message/get-messages?currentPage=1`);
+      setLoadMoreDisabled(false);
+      setMessagesData([...messages.messages]);
+    }
+    getMessagesByRole();
+  },[])
 
   const loadMoreMessagesHandler = async () => {
     const messages = await sendRequest(
@@ -45,6 +54,9 @@ const Dashboard = props => {
     setNewsData([...newNews.results]);
     setNextNewsPage(newNews.nextPage);
   };
+
+
+
   return (
     <div className={styles.dashboard}>
       <Head>
@@ -90,7 +102,7 @@ const Dashboard = props => {
       </div>
       <div className={styles.middleContainer}>
         {loggedInDetails.role === "EDITOR"
-          ? <div className={styles.middleDiv}>
+          && <div className={styles.middleDiv}>
               <span>
                 Latest News{" "}
                 <ReloadOutlined
@@ -115,7 +127,9 @@ const Dashboard = props => {
                 </OverflowScrolling>
               </div>
             </div>
-          : <div className={styles.middleDiv}>
+          }
+          {(loggedInDetails.role === "ADMIN" || loggedInDetails.role === "SUPPORT")
+            && <div className={styles.middleDiv}>
               <span>Goerli Stats</span>
               <hr />
               <div className={styles.middleDivContainer}>
@@ -174,7 +188,7 @@ const Dashboard = props => {
                   <MessageDisplay
                     key={idx}
                     date={data.date}
-                    messageBy={data.messageBy.name}
+                    messageBy={data.messageBy?.name ?? data.name}
                     subject={data.subject}
                     isRead={data.isRead}
                     id={data._id}

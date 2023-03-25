@@ -25,25 +25,28 @@ const CustomTable = props => {
       for (const key in filters) {
         queryParams.push(JSON.stringify({[key]: filters[key]}))
       }
-      const transactionsData = await sendRequest(`/wallet-transaction/get-all-transactions?q=${queryParams}&page=${currentPage}&size=${pageSize}`);
-      setTableData(transactionsData.transactions)
-      setTotalData(transactionsData.totalData)
+      const usersData = await sendRequest(`/user/get-all-users?q=${queryParams}&page=${currentPage}&size=${pageSize}`);
+      setTableData(usersData.users)
+      setTotalData(usersData.totalUsers)
     }
     getData()
   },[currentPage, pageSize, filters])
 
-  const handleSearch = async(selectedKeys, confirm, dataIndex, clearFilters) => {
-    confirm({closeDropdown : true});
+  const handleSearch = async (close, selectedKeys, dataIndex) => {
+    close();
     setFilters(prevState => ({
       ...prevState,
       [dataIndex]: selectedKeys[0]
-  }));
+    }));
   };
-  const handleReset = (clearFilters, selectedKeys, confirm, dataIndex) => {
-    clearFilters();
+
+  const handleReset = (close, dataIndex, setSelectedKeys) => {
+    setSelectedKeys([]);
+    close();
     const { [dataIndex]: tmp, ...rest } = filters;
     setFilters(rest);
   };
+
   const onPageChangeHandler = async (current, size) => {
     setCurrentPage(current);
     setPageSize(size)
@@ -61,7 +64,7 @@ const CustomTable = props => {
           placeholder={`Search ${dataIndex}`}
           value={selectedKeys[0]}
           onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          onPressEnter={() => handleSearch(close, selectedKeys, dataIndex)}
           style={{
             marginBottom: 8,
             display: 'block',
@@ -70,7 +73,7 @@ const CustomTable = props => {
         <Space>
           <Button
             type="primary"
-            onClick={() => handleSearch(selectedKeys, confirm, dataIndex, clearFilters)}
+            onClick={() => handleSearch(close, selectedKeys, dataIndex)}
             icon={<SearchOutlined />}
             size="small"
             style={{
@@ -81,7 +84,8 @@ const CustomTable = props => {
             Search
           </Button>
           <Button
-            onClick={() => clearFilters && handleReset(clearFilters, selectedKeys, confirm, dataIndex)}
+          onClick={() =>
+              clearFilters && handleReset(close, dataIndex, setSelectedKeys)}
             size="small"
             style={{
               width: 90,
@@ -121,9 +125,9 @@ const CustomTable = props => {
   const columns = [
     {
       title: "User Name",
-      dataIndex: "_id",
-      key: "_id",
-      ...getColumnSearchProps('_id'),
+      dataIndex: "name",
+      key: "name",
+      ...getColumnSearchProps('name'),
       render: (_, { _id, name }) =>
         <Link href={`/users/${_id}`}>
           {name}
@@ -153,8 +157,6 @@ const CustomTable = props => {
         </div>
     }
   ];
-
-
 
   return (
     <Table

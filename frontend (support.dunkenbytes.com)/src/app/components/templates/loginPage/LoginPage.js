@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import CookieBar from "./components/CookieBar";
 import styles from "./loginPage.module.css";
 import Image from "next/image";
@@ -13,11 +13,13 @@ import { useRouter } from "next/router";
 
 const LoginPage = () => {
   const router = useRouter();
-  const { error, sendRequest, isLoading } = useHttpClient();
+  const [isLoading, setIsLoading] = useState(false);
+  const { error, sendRequest } = useHttpClient();
   const { dispatch } = useContext(AppContext);
   const onFinish = async values => {
+    setIsLoading(true);
     try {
-      await sendRequest(
+      const loginResult = await sendRequest(
         "/support-user/login",
         "POST",
         JSON.stringify({
@@ -25,9 +27,11 @@ const LoginPage = () => {
           password: values.password
         })
       );
+      console.log(error);
       if (!error) {
-        const role = Cookies.get("supportUserRole");
-        Cookies.set('supportUserRole', 'role', { expires: 7 })
+        console.log(loginResult);
+        Cookies.set('supportUserRole', loginResult.role , { expires: 7 })
+        const role = loginResult.role;
         dispatch({
           type: "UserLogin",
           payload: { role }
@@ -35,6 +39,7 @@ const LoginPage = () => {
         router.push('/');
       }
     } catch (err) {}
+    setIsLoading(false);
   };
   return (
     <div className={styles.supportLogin}>

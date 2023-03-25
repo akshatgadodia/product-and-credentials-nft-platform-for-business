@@ -40,15 +40,16 @@ const NftTable = props => {
     getData()
   },[currentPage, pageSize, filters])
 
-  const handleSearch = async(selectedKeys, confirm, dataIndex, clearFilters) => {
-    confirm({closeDropdown : true});
+  const handleSearch = async (close, selectedKeys, dataIndex) => {
+    close();
     setFilters(prevState => ({
       ...prevState,
       [dataIndex]: selectedKeys[0]
-  }));
+    }));
   };
-  const handleReset = (clearFilters, selectedKeys, confirm, dataIndex) => {
-    clearFilters();
+  const handleReset = (close, dataIndex, setSelectedKeys) => {
+    setSelectedKeys([]);
+    close();
     const { [dataIndex]: tmp, ...rest } = filters;
     setFilters(rest);
   };
@@ -74,7 +75,7 @@ const NftTable = props => {
           placeholder={`Search ${dataIndex}`}
           value={selectedKeys[0]}
           onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          onPressEnter={() => handleSearch(close, selectedKeys, dataIndex)}
           style={{
             marginBottom: 8,
             display: 'block',
@@ -83,7 +84,9 @@ const NftTable = props => {
         <Space>
           <Button
             type="primary"
-            onClick={() => handleSearch(selectedKeys, confirm, dataIndex, clearFilters)}
+            onClick={() => {
+              clearFilters && handleReset(close, dataIndex, setSelectedKeys);
+            }}
             icon={<SearchOutlined />}
             size="small"
             style={{

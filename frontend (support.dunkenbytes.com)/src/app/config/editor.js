@@ -13,6 +13,8 @@ import Table from "@editorjs/table";
 import Marker from "@editorjs/marker";
 import Underline from "@editorjs/underline";
 import RawTool from "@editorjs/raw";
+import baseURL from "@/app/constants/baseURL";
+
 const EDITOR_JS_TOOLS = {
   underline: Underline,
   Marker: {
@@ -100,22 +102,31 @@ const EDITOR_JS_TOOLS = {
       }
     }
   },
+  
   image: {
     class: Image,
     config: {
+      field: 'image',
       uploader: {
-        uploadByFile(file) {
-          let formData = new FormData();
-          formData.append("images", file);
-          // send image to server
-          return API.imageUpload(formData).then(res => {
-            return {
-              success: 1,
-              file: {
-                url: res.data.data
-              }
-            };
-          });
+        async uploadByFile(file) {
+          const formData = new FormData();
+          formData.append("image", file);
+          const result = await fetch(`${baseURL}/image`,
+          {
+            method:"POST",
+            body: formData,
+            headers:{
+              // "Content-Type": 'multipart/form-data'
+            },
+            credentials: "include"
+          })
+          const resultData = await result.json();
+          return {
+            "success": 1,
+            "file": {
+              "url": `${baseURL}${resultData.data.url}`
+            }
+          }
         }
       }
     }

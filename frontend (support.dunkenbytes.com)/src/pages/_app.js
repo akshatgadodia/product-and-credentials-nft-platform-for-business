@@ -6,7 +6,6 @@ import "../app/styles/antdOverrides.css";
 import AppContext from "@/app/context/AppContext";
 import { reducer, initialLoggedInDetails } from "@/app/context/Reducer";
 import Cookies from "js-cookie";
-import Loader from "@/app/components/modules/Loader";
 import { useRouter } from "next/router";
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
@@ -20,9 +19,7 @@ export default function MyApp({ Component, pageProps }) {
   useEffect(() => {
     const setLoggedInDetails = async () => {
       const role = Cookies.get("supportUserRole");
-      if (!role) {
-        router.push("/login");
-      } else {
+      if (role !== undefined) {
         dispatch({
           type: "UserLogin",
           payload: { role }
@@ -35,13 +32,13 @@ export default function MyApp({ Component, pageProps }) {
   useEffect(
     () => {
       const handleStart = url => {
-        console.log(`Loading: ${url}`);
+        // console.log(`Loading: ${url}`);
         NProgress.start()
       };
 
       const handleStop = () => {
         NProgress.done();
-        console.log(`Loading Stop`);
+        // console.log(`Loading Stop`);
       };
 
       router.events.on("routeChangeStart", handleStart);
@@ -71,7 +68,6 @@ export default function MyApp({ Component, pageProps }) {
           crossorigin="anonymous"
         />
       </Head>
-      <Loader />
       <Component {...pageProps} />
     </AppContext.Provider>
   );

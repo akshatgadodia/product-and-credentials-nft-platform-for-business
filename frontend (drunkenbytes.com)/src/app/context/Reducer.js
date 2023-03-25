@@ -1,18 +1,19 @@
 export const initialLoggedInDetails = {
-  isLoggedIn: false,
-  role: "",
+  isConnected: false,
+  address: null,
 };
 
 export const reducer = (state, action) => {
   if (action.type === "UserLogin") {
     return {
-      isLoggedIn: true,
-      role: action.payload.role
+      isConnected: true,
+      address: action.payload.address
     };
   }
   if (action.type === "UserLogout") {
     return {
-      isLoggedIn: false
+      isConnected: false,
+      address: null,
     };
   }
 };
