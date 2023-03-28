@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import Head from 'next/head'
 import FirstFold from './components/FirstFold';
 import SecondFold from './components/SecondFold';
 
-const Privacy PolicyPage = () => {
+const PrivacyPolicyPage = () => {
   return (
     <div className={styles.supportLogin}>
     <Head>
@@ -24,4 +24,4 @@ const Privacy PolicyPage = () => {
   );
 };
 
-export default Privacy PolicyPage;
+export default PrivacyPolicyPage;

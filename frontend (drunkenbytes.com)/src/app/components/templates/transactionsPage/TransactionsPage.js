@@ -1,12 +1,11 @@
 import React from "react";
-import styles from "./transactionsPage.module.css";
 import Head from "next/head";
 import FirstFold from "./components/FirstFold";
 import SecondFold from './components/SecondFold';
 
 const CreateTemplatePage = () => {
   return (
-    <div className={styles.addProductPage}> 
+    <> 
     <Head>
         <title>Transactions | Drunken Bytes</title>
         <meta name="description" content="Explore your NFT transactions or wallet recharge transactions with Drunken Bytes Transactions page. Choose which transaction you want to view and manage easily."></meta>
@@ -21,7 +20,7 @@ const CreateTemplatePage = () => {
       </Head>
       <FirstFold />
       <SecondFold/>
-    </div>
+    </>
   )
 };
 
