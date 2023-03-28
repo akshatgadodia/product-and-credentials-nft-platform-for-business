@@ -5,7 +5,7 @@ import RaiseIssuePage from '@/app/components/templates/raiseIssuePage/RaiseIssue
 const RaiseIssue = props => {
   return (
     <DefaultLayout>
-      <RaiseIssuePage/>
+      <RaiseIssuePage hasTokenId={false}/>
     </DefaultLayout>
   );
 };

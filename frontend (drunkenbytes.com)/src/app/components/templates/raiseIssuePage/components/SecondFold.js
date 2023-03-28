@@ -7,7 +7,7 @@ const SecondFold = props => {
   return (
     <div className={styles.secondFold}>
       <ContactDetails/>
-      <ContactForm/>
+      <ContactForm hasTokenId={props.hasTokenId} tokenId={props.tokenId}/>
     </div>
   );
 };

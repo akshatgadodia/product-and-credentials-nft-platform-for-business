@@ -30,7 +30,6 @@ const SecondFold = props => {
     const list = [...traits];
     list.splice(index, 1);
     form.setFieldsValue({ [`value-${index}`]: '', [`key-${index}`]: '' });
-    console.log(list);
     setTraits(list);
   };
 
@@ -46,13 +45,11 @@ const SecondFold = props => {
           traits
         })
       );
-      console.log(result);
       if (!error) {
         notification.success({
           message: "Success",
           description: "Template Created Successfully",
           placement: "top",
-          // duration: null,
           className: "error-notification"
         });
         setTraits([{ key: '', value: '' }]);
@@ -131,7 +128,7 @@ const SecondFold = props => {
               </div>
               {
                 traits.map((field, index) => {
-                  return <div className={styles.formItemContainer}>
+                  return <div className={styles.formItemContainer} key={index}>
                     <Form.Item
                       label="Trait Type" required
                       name={`key-${index}`}

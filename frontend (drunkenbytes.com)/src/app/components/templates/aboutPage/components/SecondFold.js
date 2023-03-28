@@ -8,26 +8,24 @@ const SecondFold = (props) => {
       <div className={styles.statsContainer}>
         {[
           {
-              heading: "Business Served",
-              value: props.businessServed,
-            },
-            {
-              heading: "NFT's Created",
-              value: `${props.nftsCreated}`,
-            },
-            {
-              heading: "Net Transaction Value",
-              value: `${Number(props.netTransactionValue).toFixed(
-                5
-              )} ETH`,
-            }].map((data, idx) => {
-          return (
-            <div className={styles.stats} key={idx}>
-              <p className={styles.statsHead}>{data.value}</p>
-              <span className={styles.statsValue}>{data.heading}</span>
-            </div>
-          );
-        })}
+            heading: "Business Served",
+            value: props.businessServed,
+          },
+          {
+            heading: "NFT's Created",
+            value: `${props.nftsCreated}`,
+          },
+          {
+            heading: "Net Transaction Value",
+            value: `${Number(props.netTransactionValue).toFixed(5)} ETH`,
+          }].map((data, idx) => {
+            return (
+              <div className={styles.stats} key={idx}>
+                <p className={styles.statsHead}>{data.value}</p>
+                <span className={styles.statsValue}>{data.heading}</span>
+              </div>
+            );
+          })}
       </div>
     </div>
   );

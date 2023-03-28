@@ -12,7 +12,7 @@ const SecondFold = () => {
         everything from gaming items and digital art, to sports collectibles and
         real-world assets.
       </p>
-      <div className={styles.mainImageDiv} id="main-image-div">
+      <div className={styles.mainImageDiv}>
         <img src="/images/home-page-nft.png" alt="Image" className={styles.mainImage} />
       </div>
     </div>

@@ -11,6 +11,13 @@ const PageNotFound = () => {
         <title>Page Not Found | Support Drunken Bytes</title>
         <meta name="description" content="Oops! The page you are looking for cannot be found. Please check the URL and try again." />
         <meta name="keywords" content="Drunken Bytes, 404 error, page not found, URL not found, website error" />
+        <meta property="og:title" content="Page Not Found | Drunken Bytes" />
+        <meta property="og:description" content="Oops! The page you are looking for cannot be found. Please check the URL and try again." />
+        <meta property="og:image" content="" />
+        <meta name="twitter:title" content="Page Not Found | Drunken Bytes" />
+        <meta name="twitter:description" content="Oops! The page you are looking for cannot be found. Please check the URL and try again." />
+        <meta name="twitter:image" content=""/>
+        {/* <link rel="canonical" href="https://drunkenbytes.vercel.app/template" /> */}
       </Head>
       <div className={`${styles.container} ${styles.containerStar}`}>
         <div className={styles.star1} />

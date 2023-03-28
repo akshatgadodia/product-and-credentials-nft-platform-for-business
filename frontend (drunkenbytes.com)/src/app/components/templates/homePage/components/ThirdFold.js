@@ -7,10 +7,10 @@ const ThirdFold = () => {
   const router = useRouter();
   return (
     <div className={styles.thirdFold}>
-      <h2 className={styles.heading}>Get started with Warranty Card NFT's</h2>
+      <h2 className={styles.heading}>Get started with Products and Credentials NFT</h2>
       <div className={styles.div}>
         <div className={styles.contentDiv}>
-          <h3 className={styles.subHeading}>Create, distribute and integrate Warranty Card NFTs</h3>
+          <h3 className={styles.subHeading}>Create, distribute and integrate Products and Credentials  NFTs</h3>
           <p className={styles.subParagraph}>
             Drunken Bytes allows users to easily create, distribute, and integrate your Product NFTs and Document NFTs. This innovative solution saves time and resources for businesses, while providing an added layer of value and security for customers.
           </p>

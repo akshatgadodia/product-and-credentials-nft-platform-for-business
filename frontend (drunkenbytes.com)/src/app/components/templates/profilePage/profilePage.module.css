@@ -2,6 +2,14 @@
     width: 100%;
   padding: 50px 10vw;
 }
+.skeletonDiv{
+    min-height: calc(100vh - 80px);
+    width: 100%;
+  padding: 50px 10vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .heading{
     color: var(--purple);
 }
@@ -60,6 +68,14 @@
 .logoSkeleton{
     transform: translateY(-80px) !important;
 }
+.tilesDiv{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 30px;
+    justify-items: center;
+    align-items: center;
+  }
+
 @media only screen and (max-width: 768px) {
     .profile {
       padding: 40px 5vw;

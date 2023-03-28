@@ -4,14 +4,13 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <div className={styles.footer}>
+    <footer className={styles.footer}>
       <div className={styles.mainDiv}>
         <div className={styles.companyContainer}>
           <img src="/images/drunken-bytes-logo-complete.png" alt="LOGO" />
           <p>
-            Drunken Bytes provides NFT-based warranty solutions to brands and
-            retailers, that help them to make their customer service digitalize,
-            easy, and better than before.
+            Drunken Bytes is an innovative NFT platform providing businesses with 
+            a simple way to create and manage product and credential NFTs.
           </p>
         </div>
         <div className={styles.containersContainer}>
@@ -72,7 +71,7 @@ const Footer = () => {
           </Link>
         </div>
       </div>
-    </div>
+    </footer>
   );
 };
 

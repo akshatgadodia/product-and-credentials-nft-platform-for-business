@@ -8,7 +8,7 @@ const SecondFold = (props) => {
       <div className={styles.mainDiv}>
         <h6>WHAT ARE COOKIES AND WHY DO WE USE THEM?</h6>
         <p>
-          <strong>‍</strong>When you use our Services (as defined in our <Link href="/terms-of-service">Terms of Service</Link>), including our websites drunkenbytes.vercel.app, api-drunkenbytes.onrender.com, we use cookies, pixels, and similar technologies to gather data about your use of our Sites.
+          <strong>‍</strong>When you use our Services (as defined in our <Link className={styles.link} href="/terms-of-service">Terms of Service</Link>), including our websites drunkenbytes.vercel.app, api-drunkenbytes.onrender.com, we use cookies, pixels, and similar technologies to gather data about your use of our Sites.
         </p>
         <p>Cookies are small files that we may send to your browser when you first use the Sites, which are then stored on your device in order to remember information about you (such as login details). Those cookies are set by us and called first-party cookies. We also use third-party cookies – which are cookies from a domain different than the domain of the Sites you are visiting – for our advertising and marketing efforts.&nbsp;</p>
         <p>We use cookies in a few different ways under the following categories:</p>
@@ -28,17 +28,17 @@ const SecondFold = (props) => {
         <p>If you opt out and do not consent, we have a special script in place which ensures that no cookies that collect your data are being used. You can also choose not to allow some types of cookies. However, blocking some types of cookies may impact your experience of the Sites and the Services we are able to offer.</p>
         <p>All browser technologies enable you to manage the cookies in the cookie folder of your web browser. This means that you can either delete cookies from your cookie folder once you have finished your visit to our Sites or you can set your preferences with regard to the use of cookies before you begin browsing our Sites. Please note, as stated above, that deleting or rejecting cookies may adversely affect your user experience of our Sites.</p>
         <p>You can find out further information at:</p>
-        <p>- <a href="https://www.google.com/intl/en/chrome/privacy/">Google</a>
+        <p>- <a className={styles.link} href="https://www.google.com/intl/en/chrome/privacy/">Google</a>
         </p>
         <p>
-          <a href="https://www.google.com/intl/en/chrome/privacy/">- </a>
-          <a href="https://support.mozilla.org/en-US/kb/cookies-information-websites-store-on-your-computer?redirectlocale=en-US&amp;redirectslug=Cookies#w_cookie-settings">Firefox</a>
+          <a className={styles.link} href="https://www.google.com/intl/en/chrome/privacy/">- </a>
+          <a className={styles.link} href="https://support.mozilla.org/en-US/kb/cookies-information-websites-store-on-your-computer?redirectlocale=en-US&amp;redirectslug=Cookies#w_cookie-settings">Firefox</a>
         </p>
-        <p>- <a href="https://support.microsoft.com/en-us/help/17442/windows-internet-explorer-delete-manage-cookies">Windows</a>
+        <p>- <a className={styles.link} href="https://support.microsoft.com/en-us/help/17442/windows-internet-explorer-delete-manage-cookies">Windows</a>
         </p>
         <p>
-          <a href="https://support.microsoft.com/en-us/help/17442/windows-internet-explorer-delete-manage-cookies">- </a>
-          <a href="https://www.apple.com/safari/#security">Safari</a>
+          <a className={styles.link} href="https://support.microsoft.com/en-us/help/17442/windows-internet-explorer-delete-manage-cookies">- </a>
+          <a className={styles.link} href="https://www.apple.com/safari/#security">Safari</a>
         </p>
         <p>‍</p>
         <h6>CHANGES TO THIS COOKIES POLICY</h6>
@@ -48,12 +48,10 @@ const SecondFold = (props) => {
         <p>‍</p>
         <h6>CONTACT DETAILS</h6>
         <p>
-          <strong>‍</strong>If you have any questions, comments or requests relating to our use of cookies, or if you would like to exercise any of your rights under this policy, then please contact us at <a href="mailto:bytes.drunken@hotmail.com">bytes.drunken@hotmail.com</a>. <strong>
+          <strong>‍</strong>If you have any questions, comments or requests relating to our use of cookies, or if you would like to exercise any of your rights under this policy, then please contact us at <a className={styles.link} href="mailto:bytes.drunken@hotmail.com">bytes.drunken@hotmail.com</a>. <strong>
             <br />
           </strong>
         </p>
-        <h6></h6>
-        <h6></h6>
       </div>
     </div>
   );

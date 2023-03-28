@@ -26,3 +26,44 @@
 {"level":"error","message":"\"expiresIn\" should be a number of seconds or string representing a timespan eg: \"1d\", \"20h\", 60","timestamp":"2023-03-24T18:38:13.586Z"}
 {"level":"error","message":"\"expiresIn\" should be a number of seconds or string representing a timespan eg: \"1d\", \"20h\", 60","timestamp":"2023-03-24T18:39:45.213Z"}
 {"level":"error","message":"expiryDate is not defined","timestamp":"2023-03-24T18:41:45.233Z"}
+{"level":"error","message":"Template Not Found","timestamp":"2023-03-26T08:20:02.576Z"}
+{"level":"error","message":"Missing API Key","timestamp":"2023-03-26T16:33:51.607Z"}
+{"level":"error","message":"Missing API Key","timestamp":"2023-03-26T16:33:59.425Z"}
+{"level":"error","message":"Missing API Key","timestamp":"2023-03-26T16:34:06.889Z"}
+{"level":"error","message":"Missing API Key","timestamp":"2023-03-26T16:34:31.123Z"}
+{"level":"error","message":"Missing API Key","timestamp":"2023-03-26T16:34:51.417Z"}
+{"level":"error","message":"Resource not found","timestamp":"2023-03-26T16:57:49.097Z"}
+{"level":"error","message":"Resource not found","timestamp":"2023-03-26T16:57:55.265Z"}
+{"level":"error","message":"Resource not found","timestamp":"2023-03-26T16:57:59.420Z"}
+{"level":"error","message":"Resource not found","timestamp":"2023-03-26T16:59:01.096Z"}
+{"level":"error","message":"Resource not found","timestamp":"2023-03-26T17:01:32.734Z"}
+{"level":"error","message":"Resource not found","timestamp":"2023-03-26T17:01:46.830Z"}
+{"level":"error","message":"Resource not found","timestamp":"2023-03-26T17:02:08.253Z"}
+{"level":"error","message":"Resource not found","timestamp":"2023-03-26T17:03:01.101Z"}
+{"level":"error","message":"Resource not found","timestamp":"2023-03-26T17:04:27.610Z"}
+{"level":"error","message":"Missing API Key","timestamp":"2023-03-26T17:50:26.304Z"}
+{"level":"error","message":"ApiKey is not defined","timestamp":"2023-03-26T19:13:34.859Z"}
+{"level":"error","message":"Issue Already Raised for this Token ID","timestamp":"2023-03-26T19:16:22.526Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'split')","timestamp":"2023-03-27T06:21:43.743Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'split')","timestamp":"2023-03-27T06:22:14.537Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'split')","timestamp":"2023-03-27T06:22:25.462Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'split')","timestamp":"2023-03-27T06:22:57.155Z"}
+{"level":"error","message":"Some Error Occurred","timestamp":"2023-03-27T06:24:35.876Z"}
+{"level":"error","message":"Some Error Occurred","timestamp":"2023-03-27T06:25:09.769Z"}
+{"level":"error","message":"Some Error Occurred","timestamp":"2023-03-27T06:25:57.769Z"}
+{"level":"error","message":"Some Error Occurred","timestamp":"2023-03-27T06:26:34.049Z"}
+{"level":"error","message":"Some Error Occurred","timestamp":"2023-03-27T06:27:11.721Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'split')","timestamp":"2023-03-27T06:31:35.137Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'split')","timestamp":"2023-03-27T06:44:45.222Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'split')","timestamp":"2023-03-27T06:45:00.051Z"}
+{"level":"error","message":"Some Error Occurred","timestamp":"2023-03-27T06:45:59.925Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'totalAmount')","timestamp":"2023-03-27T14:50:14.845Z"}
+{"level":"error","message":"NftTransaction.find(...).sum is not a function","timestamp":"2023-03-27T15:03:17.356Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'split')","timestamp":"2023-03-28T07:25:58.720Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'split')","timestamp":"2023-03-28T07:26:58.807Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'split')","timestamp":"2023-03-28T07:27:24.181Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'split')","timestamp":"2023-03-28T07:29:08.969Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'split')","timestamp":"2023-03-28T07:31:47.599Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'split')","timestamp":"2023-03-28T07:34:36.265Z"}
+{"level":"error","message":"page is not defined","timestamp":"2023-03-28T07:38:49.426Z"}
+{"level":"error","message":"page is not defined","timestamp":"2023-03-28T07:38:55.293Z"}

@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "../stylesheets/firstFold.module.css";
+
 const FirstFold = () => {
   return (
     <div className={styles.firstFold}
@@ -10,9 +11,9 @@ const FirstFold = () => {
           ")"
       }}
     >
-      <h1 className={styles.heading}>Contact Us</h1>
+      <h1 className={styles.heading}>Raise Issue</h1>
       <p className={styles.subParagraph}>
-        Want to get in touch? We'd love to hear from you.
+        Have a issue regarding your NFT? Raise it here
       </p>
     </div>
   );

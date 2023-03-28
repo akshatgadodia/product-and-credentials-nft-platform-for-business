@@ -9,7 +9,7 @@
 }
 .heading {
   color: var(--purple);
-  font-size: 55px;
+  font-size: 45px;
   line-height: 1.2em;
   font-weight: 540;
 }
@@ -36,7 +36,7 @@
   line-height: 1.4em;
   font-weight: 400;
   letter-spacing: 0.3px;
-  color: var(--footerText);
+  color: var(--lightBlack);
 }
 .mainImageDiv {
   max-width: 500px;

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styles from "./profilePage.module.css";
 import { useHttpClient } from "@/app/hooks/useHttpClient";
-import { Image, Tabs, Skeleton } from 'antd';
+import { Image, Skeleton, Spin } from 'antd';
 import Head from 'next/head'
-import NftTable from "./components/NftTable";
-import WalletRechargeTable from "./components/WalletRechargeTable";
+import InformationDiv from './components/InformationDiv';
 
 const ProfilePage = () => {
   const { error, sendRequest, clearError, isLoading } = useHttpClient();
@@ -12,84 +11,77 @@ const ProfilePage = () => {
   useEffect(() => {
     const sendFetchRequest = async () => {
       const result = await sendRequest("/user/get-user-profile");
-      setProfileData(result.user)
+      setProfileData(result);
     }
     sendFetchRequest();
   }, [])
 
   return (
-    <div className={styles.profile}>
+    <>
       <Head>
         <title>Profile | Drunken Bytes</title>
         <meta name="description" content="Get access to your personalized profile page on Drunken Bytes. View your account information, update your profile, and manage your settings." />
         <meta name="keywords" content="profile page, account information, user settings, personalization, manage account. Drunken Bytes" />
+        <meta property="og:title" content="Profile | Drunken Bytes" />
+        <meta property="og:description" content="Get access to your personalized profile page on Drunken Bytes. View your account information, update your profile, and manage your settings." />
+        <meta property="og:image" content="" />
+        <meta name="twitter:title" content="Profile | Drunken Bytes" />
+        <meta name="twitter:description" content="Get access to your personalized profile page on Drunken Bytes. View your account information, update your profile, and manage your settings." />
+        <meta name="twitter:image" content=""/>
+        <link rel="canonical" href="https://drunkenbytes.vercel.app/profile" />
       </Head>
-      <h1 className={styles.heading}>Drunken Bytes Profile</h1>
-      <p className={styles.paragraph}>Here you can find your profile information</p>
-        <div className={styles.profileDiv}>
-          <div className={styles.headerDiv}><strong>User Profile</strong></div>
-          <div className={styles.contentDiv}>
-            <div className={styles.imageDiv}>
-              {
-                (profileData?.logo === undefined) ? <Skeleton.Avatar shape="circle" active block size={200} /> :
+      {
+        (profileData?.user?.logo === undefined) ?
+          <div className={styles.skeletonDiv}><Spin size="large" tip="Fetching your details..." /></div> :
+          <div className={styles.profile}>
+            <h1 className={styles.heading}>Drunken Bytes Profile</h1>
+            <p className={styles.paragraph}>Here you can find your profile information</p>
+            <div className={styles.profileDiv}>
+              <div className={styles.headerDiv}><strong>User Profile</strong></div>
+              <div className={styles.contentDiv}>
+                <div className={styles.imageDiv}>
                   <Image
                     width={200}
-                    src={profileData.logo}
-                    alt="brand-logo"                  
-                    placeholder={<Skeleton.Avatar shape="circle" active block size={200} className={styles.logoSkeleton}/>}
+                    src={profileData?.user.logo}
+                    alt="brand-logo"
+                    placeholder={<Skeleton.Avatar shape="circle" active block size={200} className={styles.logoSkeleton} />}
                   />
-              }
+                </div>
+                <div className={styles.informationDiv}>
+                  <div className={styles.informationContent}>
+                    <p>Business Name</p>
+                    <p>{profileData?.user.name}</p>
+                  </div>
+                  <div className={styles.informationContent}>
+                    <p>Wallet Address</p>
+                    <p>{profileData?.user.accountAddress}</p>
+                  </div>
+                  <div className={styles.informationContent}>
+                    <p>Business Email</p>
+                    <p>{profileData?.user.email}</p>
+                  </div>
+                  <div className={styles.informationContent}>
+                    <p>Wallet Balance</p>
+                    <p>{profileData?.user.walletBalance} ETH</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className={styles.informationDiv}>
-              <div className={styles.informationContent}>
-                {(profileData?.name === undefined) ? <Skeleton.Input active block /> : <>
-                  <p>Business Name</p>
-                  <p>{profileData.name}</p>
-                </>}
-              </div>
-              <div className={styles.informationContent}>
-                {(profileData?.accountAddress === undefined) ? <Skeleton.Input active block /> : <>
-                  <p>Wallet Address</p>
-                  <p>{profileData.accountAddress}</p>
-                </>}
-
-              </div>
-              <div className={styles.informationContent}>
-                {(profileData?.email === undefined) ? <Skeleton.Input active block /> : <>
-                  <p>Business Email</p>
-                  <p>{profileData.email}</p>
-                </>}
-
-              </div>
-              <div className={styles.informationContent}>
-                {(profileData?.walletBalance === undefined) ? <Skeleton.Input active block /> : <>
-                  <p>Wallet Balance</p>
-                  <p>{profileData.walletBalance} ETH</p>
-                </>}
-
-              </div>
+            <div className={styles.tilesDiv}>
+              <InformationDiv title="Commission Charged" content={`${profileData?.user?.commissionPercent}%`} />
+              <InformationDiv title="NFT Generated" content={profileData?.nft} />
+              <InformationDiv title="Pending Transactions" content={profileData?.pendingTransactions} />
+              <InformationDiv title="ETH Spent" content={Number(profileData?.value).toFixed(5)} />
+              <InformationDiv title="Last Transaction Value" content={`${Number(profileData?.lastTransactionValue).toFixed(8)} ETH`} />
+              <InformationDiv title="Total Issues" content={profileData?.totalIssues} />
+              <InformationDiv title="Active Issues" content={profileData?.activeIssues} />
+              <InformationDiv title="Solved Issues" content={profileData?.solvedIssues} />
+              <InformationDiv title="Active API Keys" content={profileData?.apiKey} />
+              <InformationDiv title="Templates Generated" content={profileData?.templates} />
+              
             </div>
           </div>
-        </div>
-      <Tabs
-        defaultActiveKey="1"
-        className="profile-tabs"
-        size="middle"
-        type="card"
-        animated
-      >
-        <Tabs.TabPane tab="NFT Transactions" key="1" className="tab-pane">
-          <NftTable />
-        </Tabs.TabPane>
-        <Tabs.TabPane tab="Wallet Transactions" key="2" className="tab-pane">
-          <WalletRechargeTable />
-        </Tabs.TabPane>
-        <Tabs.TabPane tab="Template" key="3" className="tab-pane">
-          HAHA
-
-        </Tabs.TabPane>
-      </Tabs>
-    </div>
+      }</>
   );
 };
 

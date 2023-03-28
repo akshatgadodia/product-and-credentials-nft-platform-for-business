@@ -32,7 +32,7 @@ const FirstFold = () => {
             a series of programming languages. Click below to explore.
           </p>
           <Link to="code-examples" spy={true} smooth={true} offset={-100} duration={500}>
-          <CustomButton type="OnlyBorder" text="CODE EXAMPLES" onClickHandler={()=>{}}/>
+            <CustomButton type="OnlyBorder" text="CODE EXAMPLES" onClickHandler={()=>{}}/>
           </Link>
         </div>
       </div>

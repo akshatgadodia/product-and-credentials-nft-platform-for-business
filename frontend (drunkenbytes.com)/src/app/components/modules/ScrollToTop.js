@@ -21,10 +21,10 @@ const ScrollToTop = () => {
       type="button"
       className={isVisible ? styles.scrollToTop : styles.scrollToTopHidden}
       onClick={() => {
-        console.log("CLICKED")
         window.scrollTo({ top: 0, behavior: "smooth" });
       }}
       aria-label="Scroll to Top"
+      role="button"
     >
         <CaretUpOutlined className={styles.icon}/>
     </div>

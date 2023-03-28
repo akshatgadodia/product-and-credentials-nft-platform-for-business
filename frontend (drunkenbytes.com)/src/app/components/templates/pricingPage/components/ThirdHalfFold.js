@@ -3,7 +3,8 @@ import styles from "../stylesheets/thirdHalfFold.module.css";
 import CustomButton from "@/app/components/elements/CustomButton";
 import { useWeb3Modal } from "@web3modal/react";
 import { useRouter } from 'next/router'
-const ThirdHalfFold = (props) => {
+
+const ThirdHalfFold = () => {
   const router = useRouter();
   const { open } = useWeb3Modal();
   const onClickHandler = async () => {

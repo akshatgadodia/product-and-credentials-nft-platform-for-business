@@ -48,6 +48,26 @@
   border: none !important;
 }
 
+/* @/app/components/modules//CookieBar.js*/
+.cookieBarModal {
+  width: 600px !important;
+  max-width: 90vw !important;
+  border-radius: 4px !important;
+}
+.cookieBarModal .ant-modal-title {
+  font-size: 1.5rem !important;
+  font-weight: 400;
+  letter-spacing: normal !important;
+  line-height: 2rem;
+  padding-left: 18px !important;
+}
+.cookieBarModal .ant-modal-body {
+  padding: 30px 20px 40px 20px;
+}
+.cookieBarModal .ant-switch-checked {
+  background: var(--green) !important;
+}
+
 /* @/app/components/modules/AcceptAndSignModal.js */
 .acceptandSignModal {
   width: 600px !important;
@@ -263,6 +283,8 @@
 .tab-pane .ant-table-wrapper {
   margin: 0;
   padding: 0;
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
 .tab-pane .ant-pagination-item-link,
@@ -277,4 +299,20 @@
 
 .ant-tabs-nav{
   margin-bottom: 0 !important;
+}
+
+.nested-table{
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin: 10px 0 !important;
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+}
+.nested-table .ant-table{
+  margin: auto !important;
+  width: 100% !important;
+}
+.nested-table .ant-spin-nested-loading{
+  width: 100% !important;
 }

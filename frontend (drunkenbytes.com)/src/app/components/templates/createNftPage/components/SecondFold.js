@@ -5,7 +5,7 @@ import { useHttpClient } from "@/app/hooks/useHttpClient";
 import CreateNftModal from "./CreateNFTModal";
 import { DeleteOutlined, PlusOutlined } from "@ant-design/icons"
 
-const SecondFold = props => {
+const SecondFold = () => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
@@ -31,13 +31,14 @@ const SecondFold = props => {
       label: 'Custom Template'
     }
   ]);
+
   useEffect(() => {
     const getTemplates = async () => {
       try {
-        const result = await sendRequest("/product/");
+        const result = await sendRequest("/product/get-all-templates");
         if (!error) {
-          setUserTemplates(result.products);
-          result.products.map((data, idx) => {
+          setUserTemplates(result.templates);
+          result.templates.map((data, idx) => {
             setTemplateOptions(prevArray => {
               if (prevArray.some(obj => obj.value === data._id)) {
                 return prevArray;
@@ -99,7 +100,6 @@ const SecondFold = props => {
       else {
         await resetTraitsFields();
         const data = userTemplates.find((item) => item._id === templateType);
-        console.log(data);
         form.setFieldsValue({ templateType: data.name });
         form.setFieldsValue({ nftType: data.nftType });
         setTraits(data.traits);
@@ -108,7 +108,6 @@ const SecondFold = props => {
           form.setFieldsValue({ [`value-${idx}`]: data.value });
         })
       }
-      console.log(await form.getFieldsValue())
     }
     changeTraitsAccordingToTemplate();
   }, [templateType, nftType])
@@ -211,8 +210,8 @@ const SecondFold = props => {
         setTemplateType('db_defaultTemplate')
         setTransferable(true);
         setUseCustomImage(false);
-        form.setFieldsValue({templateType: 'db_defaultTemplate'});
-        form.setFieldsValue({nftype: 'product'});
+        form.setFieldsValue({ templateType: 'db_defaultTemplate' });
+        form.setFieldsValue({ nftype: 'product' });
       }
     } catch (err) { }
   };
@@ -305,6 +304,7 @@ const SecondFold = props => {
                 className={styles.input}
                 onChange={(value) => setTemplateType(value)}
                 options={templateOptions}
+                aria-label="select-template-type"
               />
             </Form.Item>
 
@@ -316,6 +316,7 @@ const SecondFold = props => {
               <Select
                 className={styles.input}
                 onChange={(value) => setNftType(value)}
+                aria-label="select-nft-type"
                 options={[
                   {
                     value: 'product',
@@ -353,7 +354,7 @@ const SecondFold = props => {
                 }
               ]}
               className={styles.formItem}>
-              <Switch onChange={() => setUseCustomImage(!useCustomImage)} checked={useCustomImage} /> &nbsp;
+              <Switch onChange={() => setUseCustomImage(!useCustomImage)} checked={useCustomImage} aria-label="useCustomImage" /> &nbsp;
               {(useCustomImage) ? 'I want to provide my own NFT Image' : 'Use auto-generated NFT Image'}<br />
               {useCustomImage &&
                 <><br /><Upload
@@ -379,11 +380,11 @@ const SecondFold = props => {
                   </Modal></>}
             </Form.Item>
             <Form.Item valuePropName="transferableChecked">
-              <Switch onChange={() => setTransferable(!transferable)} checked={transferable} /> &nbsp;
+              <Switch onChange={() => setTransferable(!transferable)} checked={transferable} aria-label="transferable"/> &nbsp;
               NFT is {(transferable) ? 'transferable' : 'not transferable'}
             </Form.Item>
             <Form.Item valuePropName="burnableChecked">
-              <Switch onChange={() => setBurnable(!burnable)} checked={burnable} /> &nbsp;
+              <Switch onChange={() => setBurnable(!burnable)} checked={burnable} aria-label="burnable"/> &nbsp;
               NFT is {(burnable) ? 'not permanent' : 'permanent'}
             </Form.Item>
             {burnable &&
@@ -402,7 +403,7 @@ const SecondFold = props => {
             <div className={styles.traitContainer}>
               <div className={styles.titleContainer}>
                 <h2>Traits</h2>
-                <Button type="primary" onClick={() => handleAddField()} className={styles.deleteButton}>
+                <Button type="primary" onClick={() => handleAddField()} className={styles.deleteButton} aria-label="add-trait">
                   <PlusOutlined style={{ color: "black" }} size="large" />
                 </Button>
               </div>
@@ -443,7 +444,7 @@ const SecondFold = props => {
                         onChange={(e) => handleInputChange(e, index)} />
                     </Form.Item>
                     <Form.Item>
-                      <Button type="primary" onClick={() => handleRemoveField(index)} className={styles.deleteButton}>
+                      <Button type="primary" onClick={() => handleRemoveField(index)} className={styles.deleteButton} aria-label="delete-trait">
                         <DeleteOutlined style={{ color: "black" }} />
                       </Button>
                     </Form.Item>

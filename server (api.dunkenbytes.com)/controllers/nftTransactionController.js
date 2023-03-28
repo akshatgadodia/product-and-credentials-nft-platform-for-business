@@ -20,7 +20,8 @@ const addTransaction = async data => {
       buyerMetamaskAddress: data.buyerMetamaskAddress,
       dateCreated: data.dateCreated,
       value: data.value,
-      methodType: data.methodType
+      methodType: data.methodType,
+      commissionCharged: data.commissionCharged
     };
     await new NftTransaction(transactionData).save();
   } catch (err) {
@@ -155,7 +156,20 @@ const getTransaction = asyncHandler(async (req, res, next) => {
   });
 });
 
+const getTransactionByTokenId = asyncHandler(async (req, res, next) => {
+  const tokenId = req.query.tokenId;
+  const transaction = await NftTransaction.findOne({ tokenId });
+
+  res.status(200).json({
+    success: true,
+    data: {
+      transaction
+    }
+  });
+});
+
 module.exports = {
+  getTransactionByTokenId,
   addTransaction,
   repeatTransaction,
   getTransactions,

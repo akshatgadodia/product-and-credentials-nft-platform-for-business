@@ -24,9 +24,16 @@ const WalletPage = () => {
   return (
     <div className={styles.profile}>
       <Head>
-        <title>Why Choose Drunken Bytes</title>
+        <title>Wallet | Drunken Bytes</title>
         <meta name="description" content="Manage your wallet securely on Drunken Bytes wallet page. Easily transfer your eth from your crypto wallet to Drunken Bytes Wallet. Keep your transactions safe with our state-of-the-art security features." />
         <meta name="keywords" content="Drunken Bytes wallet, cryptocurrency wallet, secure transactions" />
+        <meta property="og:title" content="Wallet | Drunken Bytes" />
+        <meta property="og:description" content="Manage your wallet securely on Drunken Bytes wallet page. Easily transfer your eth from your crypto wallet to Drunken Bytes Wallet. Keep your transactions safe with our state-of-the-art security features." />
+        <meta property="og:image" content="" />
+        <meta name="twitter:title" content="Wallet | Drunken Bytes" />
+        <meta name="twitter:description" content="Manage your wallet securely on Drunken Bytes wallet page. Easily transfer your eth from your crypto wallet to Drunken Bytes Wallet. Keep your transactions safe with our state-of-the-art security features." />
+        <meta name="twitter:image" content=""/>
+        <link rel="canonical" href="https://drunkenbytes.vercel.app/wallet" />
       </Head>
       <AddMoneyModal open={modalOpen} setOpen={setModalOpen} accountAddress={profileData.accountAddress} />
       <h1 className={styles.heading}>Drunken Bytes Wallet</h1>

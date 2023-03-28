@@ -2,6 +2,7 @@ import React from "react";
 import styles from "../stylesheets/contactDetails.module.css";
 import { Link } from "react-scroll";
 import { CheckCircleTwoTone, EnvironmentFilled, MailFilled, PhoneFilled } from "@ant-design/icons";
+
 const ContactDetails = props => {
   return (
     <div className={styles.contactDetails}>

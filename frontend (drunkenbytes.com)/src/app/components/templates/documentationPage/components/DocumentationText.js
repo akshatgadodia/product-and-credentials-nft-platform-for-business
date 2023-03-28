@@ -4,28 +4,25 @@ import Prism from "prismjs";
 import "../stylesheets/prism.css"
 
 const DocumentationText = props => {
+
   useEffect(() => {
     Prism.highlightAll();
   }, []);
+
   return (
     <div className={styles.documentationText}>
       <h1 className={styles.mainHeading}>API Documentation</h1>
       <p className={styles.paragraph}>
-        The Drunken Bytes API was built to provide a simple way of accessing
-        global aviation data for real-time and historical flights as well as
-        allow customers to tap into an extensive data set of airline routes and
-        other up-to-date aviation-related information. Requests to the REST API
-        are made using a straightforward HTTP GET URL structure and responses
-        are provided in lightweight JSON format.
+      The Drunken Bytes API provides businesses with a user-friendly way of creating Product and Credential NFTs. Our REST API 
+      allows customers to make requests through a simple HTTP GET URL structure and receive responses in lightweight JSON format. 
+      With our platform, businesses can easily access the tools and resources they need to create and manage their own NFTs with 
+      ease.
       </p>
       <p className={styles.paragraph}>
-        The following API documentation can be applied for any major programming
-        language and will present general integration guides and explanations
-        around API endpoints, request parameters and response objects. If any
-        questions remain unanswered for you, simply reach out to the drunken
-        bytes support team for assistance.
+        The following API documentation can be applied for any major programming language and will present general integration 
+        guides and explanations around API endpoints, request parameters and response objects. If any questions remain unanswered 
+        for you, simply reach out to the drunken bytes support team for assistance.
       </p>
-
       <h2 className={styles.heading}>Getting Started</h2>
       <h3 className={styles.subHeading} id="api-access-key">API Access Key & Authentication</h3>
       <hr className={styles.hr} />
@@ -212,10 +209,7 @@ fetch(url, options)
       <h3 className={styles.subHeading} id="create-nft">Create NFT</h3>
       <hr className={styles.hr} />
       <p className={styles.paragraph}>
-        The API is capable of tracking flights and retrieving flight status
-        information in real-time. In order to look up real-time information
-        about one or multiple flights, you can use the API's flights endpoint
-        together with optional parameters to filter your result set.
+      The API is capable of creating customizable Product and Credential NFT's. 
       </p>
       <p className={styles.paragraph}>
         <strong className={styles.subTitle}>Example API Request:</strong>

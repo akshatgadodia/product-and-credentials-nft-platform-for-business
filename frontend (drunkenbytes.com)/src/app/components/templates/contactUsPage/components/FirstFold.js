@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "../stylesheets/firstFold.module.css";
+
 const FirstFold = () => {
   return (
     <div className={styles.firstFold}

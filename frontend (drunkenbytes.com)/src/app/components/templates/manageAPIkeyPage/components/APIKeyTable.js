@@ -177,8 +177,6 @@ const APIKeyTable = props => {
     }
   ];
 
-
-
   return (
     <Table
       size="small"
@@ -190,7 +188,7 @@ const APIKeyTable = props => {
         x: "max-content"
       }}
       loading={isLoading}
-      rowKey="id"
+      rowKey="_id"
     />
   );
 };

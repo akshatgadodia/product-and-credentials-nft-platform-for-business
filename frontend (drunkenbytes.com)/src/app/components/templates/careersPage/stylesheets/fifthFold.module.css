@@ -10,7 +10,7 @@
   margin: 0 !important;
 }
 .textDiv{
-  width: 48%;
+  width: 50%;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -41,9 +41,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 50%;
 }
 .image{
-  width: 100%;
+  width: auto;
   height: auto;
 }
 @media only screen and (max-width: 768px) {

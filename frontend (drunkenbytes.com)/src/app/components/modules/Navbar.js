@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useContext } from "react";
 import AppContext from "@/app/context/AppContext";
 import Link from "next/link";
-import { UserOutlined, HighlightOutlined, LogoutOutlined, WalletOutlined, KeyOutlined  } from "@ant-design/icons";
+import { UserOutlined, FileTextOutlined , LogoutOutlined, WalletOutlined, KeyOutlined, ExclamationCircleOutlined, LineChartOutlined  } from "@ant-design/icons";
 import { Dropdown, Avatar, notification } from "antd";
 import SideDrawer from "./SideDrawer";
 import { useWeb3Modal } from "@web3modal/react";
@@ -51,7 +51,6 @@ const Navbar = () => {
         return null;
       }
       if (result.message === "Business Not Found") {
-        console.log("Business Not Found")
         setOpenModal(true);
         return null;
       }
@@ -72,7 +71,9 @@ const Navbar = () => {
       }
     },
     onDisconnect() {
-      if (authenticatedRoutes.includes(pathname)) router.push('/');
+      if (authenticatedRoutes.includes(pathname)){
+        router.push('/');
+      }
       const sendLogoutRequest = async () => {
         try {
           Cookies.remove('db_login');
@@ -168,16 +169,6 @@ const Navbar = () => {
     {
       key: "1",
       label: (
-        <Link href="/wallet">
-          <div className={styles.avatarItem}>
-            <WalletOutlined className={styles.avatarItemIcon} />Wallet
-          </div>
-        </Link>
-      )
-    },
-    {
-      key: "2",
-      label: (
         <Link href="/profile">
           <div className={styles.avatarItem}>
             <UserOutlined className={styles.avatarItemIcon} />Profile
@@ -186,18 +177,17 @@ const Navbar = () => {
       )
     },
     {
-      key: "3",
+      key: "2",
       label: (
-        <Link href="/create-template">
+        <Link href="/wallet">
           <div className={styles.avatarItem}>
-            <HighlightOutlined className={styles.avatarItemIcon} />
-            Create a Template
+            <WalletOutlined className={styles.avatarItemIcon} />Wallet
           </div>
         </Link>
       )
-    },
+    }, 
     {
-      key: "4",
+      key: "3",
       label: (
         <Link href="/api-keys">
           <div className={styles.avatarItem}>
@@ -208,7 +198,41 @@ const Navbar = () => {
       )
     },
     {
+      key: "4",
+      label: (
+        <Link href="/transactions">
+          <div className={styles.avatarItem}>
+            <LineChartOutlined className={styles.avatarItemIcon} />
+            View Transactions
+          </div>
+        </Link>
+      )
+    },
+    {
       key: "5",
+      label: (
+        <Link href="/issues">
+          <div className={styles.avatarItem}>
+            <ExclamationCircleOutlined className={styles.avatarItemIcon} />
+            View Issues
+          </div>
+        </Link>
+      )
+    },
+    {
+      key: "6",
+      label: (
+        <Link href="/template">
+          <div className={styles.avatarItem}>
+            <FileTextOutlined  className={styles.avatarItemIcon} />
+            Manage Templates
+          </div>
+        </Link>
+      )
+    },
+
+    {
+      key: "7",
       label: (
         <button className={styles.avatarItemButton} onClick={() => disconnect()}>
           <div className={styles.avatarItem}>
@@ -220,7 +244,7 @@ const Navbar = () => {
     }
   ];
   return (
-    <div
+    <header
       className={`${styles.navbar} ${isNavBarFixed ? styles.fixedNavbar : ""}`}
     > 
       <RegisterModal openModal={openModal} setOpenModal={setOpenModal} address={address}/>
@@ -275,7 +299,7 @@ const Navbar = () => {
           </button>}
         <SideDrawer />
       </div>
-    </div>
+    </header>
   );
 };
 

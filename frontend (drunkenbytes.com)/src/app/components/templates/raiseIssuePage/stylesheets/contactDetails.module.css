@@ -23,28 +23,25 @@
 .space{
   margin-bottom: 20px;
 }
-.paragraphHead{
-  padding: 0 !important;
-  margin: 0 !important;
-  font-weight: bold;
-  color: var(--purple);
+.input{
+  height: 50px;
+  width: 100% !important;
+  display: flex !important;
+  align-items: center; 
 }
-.containerDiv{
-  display:flex;
-  align-items: flex-start;
-  gap: 20px;
+.input:hover{
+  border-color: var(--purple) !important;
 }
-.iconDiv{
-  background-color: var(--darkWhite);
-  height: 40px;
-  width: 40px;
-  border-radius: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.button{
+  height: 50px !important;
+  width: 100% !important;
+  background-color: var(--purple);
+  color: var(--white);
+  font-size: 20px;
 }
-.infoIcon{
-  color: var(--purple);
+.button:hover{
+  background-color: var(--purple) !important;
+  opacity: 0.9;
 }
 @media only screen and (max-width: 768px) {
   .contactDetails {

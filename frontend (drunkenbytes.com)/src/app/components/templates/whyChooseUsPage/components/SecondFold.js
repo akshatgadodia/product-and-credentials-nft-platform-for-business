@@ -8,39 +8,39 @@ const SecondFold = props => {
       {[
         {
           src: "/images/easy-to-use.png",
-          alt: "easy-to-use",
-          heading: "Easy to use",
-          paragraph: "Drunken Bytes simplifies creating NFT-based warranty cards with website or API integration, saving time and resources for users."
+          alt: "transparency",
+          heading: "Transparency ",
+          paragraph: "We believe in being transparent with our clients throughout the entire project lifecycle. We provide regular updates and communicate clearly and honestly about the progress of your project."
         },
         {
           src: "/images/transferable.png",
-          alt: "transferable",
-          heading: "Transferable",
-          paragraph: "Drunken Bytes' NFT-based warranty cards facilitate NFT transfer between owners, adding value for customers when reselling products."
+          alt: "customization",
+          heading: "Customization",
+          paragraph: "Drunken Bytes understands that every business has unique needs and requirements, and therefore offers tailored solutions that are customized to meet the specific needs of each client."
         },
         {
           src: "/images/innovative.png",
           alt: "innovative",
           heading: "Innovative",
-          paragraph: "Drunken Bytes is innovating NFT technology in warranties, ensuring customers work with a company that seeks new solutions."
+          paragraph: "We are constantly pushing the boundaries of what is possible in the blockchain and NFT space. We love taking on new challenges and coming up with innovative solutions to complex problems."
         },
         {
           src: "/images/cost-effective.png",
-          alt: "cost-effective",
-          heading: "Cost-effective",
-          paragraph: "NFT-based warranties are cost-effective, reduce admin costs, and prevent fraud compared to traditional solutions."
+          alt: "competitive-pricing",
+          heading: "Competitive Pricing",
+          paragraph: "We offer competitive pricing for our services, without sacrificing quality. We believe that our clients should get the best value for their money, and we work hard to ensure that our prices are fair and reasonable."
         },
         {
           src: "/images/customer-friendly.png",
-          alt: "customer-friendly",
-          heading: "Customer-friendly",
-          paragraph: "NFT-based warranties are customer-friendly, transferable, and build trust between businesses and customers with blockchain verification."
+          alt: "Expertise ",
+          heading: "Expertise ",
+          paragraph: "Our team has years of experience in the blockchain and NFT space, and we are constantly staying up-to-date with the latest trends and technologies. We have a deep understanding of the industry, and we are confident that we can help you achieve your goals."
         },
         {
           src: "/images/customer-support.png",
-          alt: "customer-support",
-          heading: "Customer support",
-          paragraph: "Drunken Bytes offers customer support for users creating and managing NFT-based warranties, especially those new to blockchain technology."
+          alt: "customer-service",
+          heading: "Customer Service",
+          paragraph: "At Drunken Bytes, we believe that great customer service is key to building lasting relationships with our clients. We are always available to answer your questions and address your concerns, and we work closely with you to ensure that you are satisfied with the final product."
         }
       ].map((data, idx)=>{
         return <div className={styles.containerDiv} key={idx}>

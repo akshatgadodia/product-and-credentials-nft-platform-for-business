@@ -1,7 +1,8 @@
 import React from "react";
 import styles from "../stylesheets/sideNavigation.module.css";
 import {Link} from "react-scroll";
-import {CaretRightOutlined} from "@ant-design/icons"
+import {CaretRightOutlined} from "@ant-design/icons";
+
 const SecondFold = props => {
   return (
       <div className={styles.menu}>

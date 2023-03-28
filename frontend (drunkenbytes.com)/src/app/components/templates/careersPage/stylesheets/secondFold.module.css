@@ -3,7 +3,6 @@
   padding: 50px 10vw;
   text-align: center;
   background-color: var(--greyishWhite) !important;
-
 }
 .heading {
   color: var(--black);
@@ -19,7 +18,7 @@
   line-height: 1.4em;
   font-weight: 400;
   letter-spacing: 0.3px;
-  color: var(--footerText);
+  color: var(--lightBlack);
   margin-right: auto;
   margin-left: auto;
 }

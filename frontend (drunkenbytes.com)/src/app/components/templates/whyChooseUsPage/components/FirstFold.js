@@ -1,25 +1,29 @@
 import React from "react";
 import styles from "../stylesheets/firstFold.module.css";
+
 const FirstFold = () => {
   return (
     <div className={styles.firstFold}
-    style={{
+      style={{
         backgroundImage:
           "url(" +
           "/images/background/gradient-bottom-2000x1113.jpeg" +
           ")"
       }}>
-    {/* <img src="/images/background/gradient-bottom-2000x1113.jpeg" alt="bg" className={styles.bgImage}/> */}
       <div className={styles.mainDiv} id="main-div">
-        <div className={styles.heading}>
+        <h1 className={styles.heading}>
           Why Choose Us?
-        </div>
-            <p className={styles.subParagraph}>
-            Experience hassle-free NFT-based warranties with Drunken Bytes: Innovative, Cost-Effective, and Customer-Friendly.
-            </p>
+        </h1>
+        <p className={styles.subParagraph}>
+          Drunken Bytes is a leading provider of NFT creation services, dedicated to helping businesses unlock the potential of 
+          blockchain technology. With our innovative platform, businesses can easily create product and credentials NFTs, allowing 
+          them to add value to their offerings and establish trust with their customers. Our team of experts is committed to 
+          delivering quality solutions that meet the unique needs of our clients, while providing exceptional value and 
+          unparalleled customer support.
+        </p>
       </div>
       <div className={styles.mainImageDiv} id="main-image-div">
-        <img src="/images/why-choose-us.png" alt="Image" className={styles.mainImage}/>
+        <img src="/images/why-choose-us.png" alt="Image" className={styles.mainImage} />
       </div>
     </div>
   );

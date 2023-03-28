@@ -1,8 +1,38 @@
 import React from "react";
 import styles from "../stylesheets/contactDetails.module.css";
-import { Link } from "react-scroll";
-import { CheckCircleTwoTone, EnvironmentFilled, MailFilled, PhoneFilled } from "@ant-design/icons";
+import { Button, Form, Input, Spin, Select, notification  } from "antd";
+import { CheckCircleTwoTone} from "@ant-design/icons";
+import { useHttpClient } from "@/app/hooks/useHttpClient";
+
 const ContactDetails = props => {
+  const { error, sendRequest, isLoading } = useHttpClient();
+  const [form] = Form.useForm();
+
+  const onFinish = async values => {
+    try {
+      const result = await sendRequest(
+        `/issue/get-issue-status/${values.tokenId}`
+      );
+      if (!error) {
+        if(result.issue.isSolved)
+          notification.success({
+            message: "Success",
+            description: "Your Issue is solved and closed",
+            placement: "top",
+            className: "error-notification"
+          });
+        else
+          notification.info({
+            message: "Processing...",
+            description: "Your Issue is still in processing. For further information please contact your NFT creator.",
+            placement: "top",
+            className: "error-notification"
+          });
+        form.resetFields();
+      }
+    } catch (err) { }
+  };
+
   return (
     <div className={styles.contactDetails}>
       <h2 className={styles.heading}>We're here to help</h2>
@@ -28,35 +58,36 @@ const ContactDetails = props => {
         Connect you with helpful resources
       </p>
       <span className={styles.space} />
-      <h2 className={styles.heading}>Points of Contact</h2>
-      <div className={styles.containerDiv}>
-        <div className={styles.iconDiv}>
-          <EnvironmentFilled className={styles.infoIcon} />
-        </div>
-        <div className={styles.informationDiv}>
-          <p className={styles.paragraphHead}>Address</p>
-          <p className={styles.paragraph}>Jaipur, Rajasthan</p>
-          <p className={styles.paragraph}>302016</p>
-        </div>
-      </div>
-      <div className={styles.containerDiv}>
-        <div className={styles.iconDiv}>
-          <PhoneFilled className={styles.infoIcon} />
-        </div>
-        <div className={styles.informationDiv}>
-          <p className={styles.paragraphHead}>Phone</p>
-          <p className={styles.paragraph}>+91-12345 67890</p>
-        </div>
-      </div>
-      <div className={styles.containerDiv}>
-        <div className={styles.iconDiv}>
-          <MailFilled className={styles.infoIcon} />
-        </div>
-        <div className={styles.informationDiv}>
-          <p className={styles.paragraphHead}>Email</p>
-          <p className={styles.paragraph}>bytes.drunken@hotmail.com</p>
-        </div>
-      </div>
+      <h2 className={styles.heading}>Check Issue Status</h2>
+      <Spin size="large" spinning={isLoading}>
+      <Form
+        name="status-check-form"
+        id="status-check-form"
+        form={form}
+        style={{ maxWidth: "100%" }}
+        onFinish={onFinish}
+        autoComplete="on"
+        layout="vertical"
+      >
+        <Form.Item
+          name="tokenId" label="Token ID"
+          rules={[
+            {
+              required: true,
+              message: "Please input Token Id"
+            }
+          ]}
+          className={styles.formItem}
+        >
+          <Input placeholder="Enter NFT Token ID" className={styles.input} />
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit" className={styles.button}>
+            Check Status
+          </Button>
+        </Form.Item>
+      </Form>
+      </Spin>
     </div>
   );
 };

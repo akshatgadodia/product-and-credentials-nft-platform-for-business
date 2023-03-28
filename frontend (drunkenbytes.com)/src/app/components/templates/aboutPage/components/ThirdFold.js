@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../stylesheets/thirdFold.module.css";
+
 const ThirdFold = () => {
-  //Editod using GITHUB
   return (
     <div className={styles.thirdFold}>
       <div className={styles.mainImageDiv} id="main-image-div">
@@ -11,8 +11,6 @@ const ThirdFold = () => {
         <div className={styles.heading}>
           Who We Are
         </div>
-        {/* We’re a team of blockchain enthusiasts who are passionate about exploring the potential of NFTs in the world of warranties. We provide a user-friendly platform for businesses to create, distribute, and manage NFT-based warranty cards, as well as a wallet system for easy payment and commission management. Our goal is to help businesses improve their warranty systems through the use of innovative technology, while providing excellent customer support along the way. */}
-
         <p className={styles.subParagraph}>
           We are a platform that empowers businesses to create NFTs of their products, certificates, and documents. Our mission is to provide a unique and valuable asset to customers that increases the value of their purchases.
         </p>
@@ -26,7 +24,6 @@ const ThirdFold = () => {
           We are committed to driving innovation and pushing the boundaries of what is possible with blockchain technology. We believe that NFTs have the potential to revolutionize the way we buy, sell, and own assets, and we are excited to be at the forefront of this transformation.
         </p>
       </div>
-
     </div>
   );
 };

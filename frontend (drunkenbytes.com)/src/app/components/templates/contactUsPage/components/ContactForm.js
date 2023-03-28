@@ -1,25 +1,21 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useContext } from "react";
 import styles from "../stylesheets/contactForm.module.css";
-import { Button, Form, Input, Spin, Select, notification  } from "antd";
+import { Button, Form, Input, Spin, Select, notification } from "antd";
 import { useHttpClient } from "@/app/hooks/useHttpClient";
-import { useAccount } from "wagmi";
+import AppContext from "@/app/context/AppContext";
 
 const ContactForm = props => {
-  const { isConnected } = useAccount();
+  const { loggedInDetails } = useContext(AppContext);
   const { Option } = Select;
   const { TextArea } = Input;
   const { error, sendRequest, isLoading } = useHttpClient();
   const [topic, setTopic] = useState(null);
   const [form] = Form.useForm();
 
-  useEffect(()=>{
-    console.log("Connection ",isConnected)
-  },[isConnected])
-
   const onFinish = async values => {
     try {
       const result = await sendRequest(
-        (isConnected) ? '/message/save-message' : '/message/save-contact-message',
+        (loggedInDetails?.isConnected) ? '/message/save-message' : '/message/save-contact-message',
         "POST",
         JSON.stringify({
           name: values.name,
@@ -34,7 +30,6 @@ const ContactForm = props => {
           message: "Success",
           description: result.message,
           placement: "top",
-          // duration: null,
           className: "error-notification"
         });
         form.resetFields();
@@ -61,98 +56,97 @@ const ContactForm = props => {
   return (
     <div className={styles.contactForm}>
       <Spin size="large" spinning={isLoading}>
-      <Form
-        name="basic"
-        form={form}
-        style={{ maxWidth: "100%" }}
-        onFinish={onFinish}
-        autoComplete="on"
-      >
-        {!isConnected && 
-        <Form.Item
-          name="name"
-          rules={[
-            {
-              required: true,
-              message: "Please input Name"
-            }
-          ]}
-          className={styles.formItem}
+        <Form 
+          name="basic"
+          form={form}
+          style={{ maxWidth: "100%" }}
+          onFinish={onFinish}
+          autoComplete="on"
         >
-          <Input placeholder="Name" className={styles.input} />
-        </Form.Item>
-        }
-        {!isConnected &&
-        <Form.Item
-          name="email"
-          rules={[
-            {
-              type: "email",
-              message: "Entered email is not a valid Email!"
-            },
-            {
-              required: true,
-              message: "Please enter email!"
-            }
-          ]}
-          className={styles.formItem}
-        >
-          <Input placeholder="Email" className={styles.input} />
-        </Form.Item>
-        }
-        <Form.Item
-          name="subject"
-          rules={[
-            {
-              required: true,
-              message: "Please input Subject!"
-            }
-          ]}
-          className={styles.formItem}
-        >
-          <Input placeholder="Subject" className={styles.input} />
-        </Form.Item>
-        {isConnected && 
-        
-        <Form.Item
-        name="topic"
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-        className={styles.formItem}
-      >
-        <Select
-          placeholder="Please select a Topic"
-          onChange={onTopicChange}
-          allowClear
-          className={styles.input} 
-        >
-          <Option value="sales">Sales</Option>
-          <Option value="support">Support</Option>
-          <Option value="other">Other</Option>
-        </Select>
-      </Form.Item>
-        }
-      <Form.Item
-          name="message"
-          rules={[
-            {
-              required: true,
-              message: "Please input Subject!"
-            }
-          ]}
-          className={styles.formItem}
-        >
-          <TextArea placeholder="Message" rows={4} className={styles.input} />
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit" className={styles.button}>
-            SUBMIT
-          </Button>
-        </Form.Item>
-      </Form>
+          {!loggedInDetails?.isConnected &&
+            <Form.Item
+              name="name" label="Name"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input Name"
+                }
+              ]}
+              className={styles.formItem}
+            >
+              <Input placeholder="Please Enter Your Name" className={styles.input} />
+            </Form.Item>
+          }
+          {!loggedInDetails?.isConnected &&
+            <Form.Item
+              name="email" label="Email"
+              rules={[
+                {
+                  type: "email",
+                  message: "Entered email is not a valid Email!"
+                },
+                {
+                  required: true,
+                  message: "Please enter email!"
+                }
+              ]}
+              className={styles.formItem}
+            >
+              <Input placeholder="Please Enter Your Email" className={styles.input} />
+            </Form.Item>
+          }
+          <Form.Item
+            name="subject" label="Subject"
+            rules={[
+              {
+                required: true,
+                message: "Please input Subject!"
+              }
+            ]}
+            className={styles.formItem}
+          >
+            <Input placeholder="Please Enter Subject" className={styles.input} />
+          </Form.Item>
+          {loggedInDetails?.isConnected &&
+            <Form.Item
+              name="topic" label="Topic"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+              className={styles.formItem}
+            >
+              <Select
+                placeholder="Please select a Topic"
+                onChange={onTopicChange}
+                allowClear
+                className={styles.input}
+              >
+                <Option value="sales">Sales</Option>
+                <Option value="support">Support</Option>
+                <Option value="other">Other</Option>
+              </Select>
+            </Form.Item>
+          }
+          <Form.Item
+            name="message" label="Message"
+            rules={[
+              {
+                required: true,
+                message: "Please input Message!"
+              }
+            ]}
+            className={styles.formItem}
+          >
+            <TextArea placeholder="Please Enter Message" rows={4} className={styles.input} />
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit" className={styles.button}>
+              SUBMIT
+            </Button>
+          </Form.Item>
+        </Form>
       </Spin>
     </div>
   );
