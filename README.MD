@@ -48,9 +48,9 @@ Deployed Instances
 
 We have deployed instances of our platform that you can try out:
 
--   Main website: [DrunkenBytes](https://www.drunkenbytes.vercel.app/)
--   Support system: [Support-DrunkenBytes](https://support-drunkenbytes.vercel.app/)
--   API server: [API-DrunkenBytes](https://api-drunkenbytes.onrender.com/)
+-   Main website: ***[DrunkenBytes](https://www.drunkenbytes.vercel.app/)***
+-   Support system: ***[Support-DrunkenBytes](https://support-drunkenbytes.vercel.app/)***
+-   API server: ****[API-DrunkenBytes](https://api-drunkenbytes.onrender.com/)***
 
 Demonstration Video
 -------------------
