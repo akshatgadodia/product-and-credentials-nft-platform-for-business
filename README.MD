@@ -57,7 +57,7 @@ Demonstration Video
 
 To see a demonstration of Drunken Bytes in action, check out our YouTube video:
 
-***[Drunken Bytes Demonstration Video]()***
+***[Drunken Bytes Demonstration Video](https://youtu.be/9Irk2_cdwAg)***
 
 ***
 
