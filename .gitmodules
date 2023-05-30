@@ -1,9 +1,3 @@
 [submodule "DrunkenBytes"]
 	path = DrunkenBytes
 	url = https://github.com/akshatgadodia/DrunkenBytes.git
-[submodule "Api-DrunkenBytes"]
-	path = Api-DrunkenBytes
-	url = https://github.com/akshatgadodia/Api-DrunkenBytes.git
-[submodule "Support-DrunkenBytes"]
-	path = Support-DrunkenBytes
-	url = https://github.com/akshatgadodia/Support-DrunkenBytes.git
